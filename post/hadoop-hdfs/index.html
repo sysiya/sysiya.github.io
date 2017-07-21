@@ -14,7 +14,7 @@
 <meta property="og:description" content="Hadoop Distributed File System(HDFS) 是一个分布式文件系统，可以运行在普通的计算机上（相对于专业的服务器）。它与现有的分布式文件系统有许多相似之处，也有不同于其他分布式文件系统的特性。HDFS 是具有高容错性的，并且可以应用于性能较低的计算机上。HDFS 提供了对应用程序数据的高吞吐量访问，并且适用于具有大型数据集的应用程序。HDFS 放松了一些 POSIX 需">
 <meta property="og:image" content="http://yoursite.com/resources/8DF7B6084F607800A1E75D1BC5854558.jpg">
 <meta property="og:image" content="http://yoursite.com/resources/93C9A23674E30A66F2256A412E5C9797.jpg">
-<meta property="og:updated_time" content="2017-07-19T17:09:42.000Z">
+<meta property="og:updated_time" content="2017-07-20T01:03:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop · 分布式文件操作系统 · HDFS">
 <meta name="twitter:description" content="Hadoop Distributed File System(HDFS) 是一个分布式文件系统，可以运行在普通的计算机上（相对于专业的服务器）。它与现有的分布式文件系统有许多相似之处，也有不同于其他分布式文件系统的特性。HDFS 是具有高容错性的，并且可以应用于性能较低的计算机上。HDFS 提供了对应用程序数据的高吞吐量访问，并且适用于具有大型数据集的应用程序。HDFS 放松了一些 POSIX 需">
@@ -98,7 +98,7 @@
 <p>HDFS 对外公开文件系统名称空间，并允许将用户数据存储在文件中。在内部，文件被分割成一个或多个<strong>块</strong>（block），这些<strong>块</strong>存储在一组 DataNodes 中。</p>
 <p>NameNode 执行文件系统命名空间操作，如打开、关闭和重命名文件和目录。它还决定了<strong>块</strong>到 DataNodes 的映射。</p>
 <p>DataNodes 负责响应文件系统的客户端的读写请求。DataNodes 还会接收 NameNode 发送的指令执行<strong>块</strong>创建、删除和复制操作。</p>
-<p><img src="/resources/8DF7B6084F607800A1E75D1BC5854558.jpg" alt="IMAGE"></p>
+<p><img src="/resources/8DF7B6084F607800A1E75D1BC5854558.jpg" alt="主从架构"></p>
 <p>NameNode 和 DataNode 都是是在后台运行的<strong>守护进程</strong>。HDFS 是使用 Java 语言构建的；任何支持 Java 的计算机都可以运行 NameNode 或 DataNode 守护进程。使用高度可移植的 Java语言意味着 HDFS 可以部署在大多数机器上。一般来说，NameNode 会运行在专门的计算机上，而集群中的其他计算机都会运行 DataNode 守护进程的一个实例。HDFS 架构允许在同一台计算机上运行多个 DataNodes，但是在实际部署中很少出现这种情况。</p>
 <p>整个集群中只有一个 NameNode 负责管理整个文件系统的元数据，这极大地简化了系统的架构，同时用户数据基本不会经过 NameNode（除非在同一台计算机上部署了 DataNode）。</p>
 <h2 id="文件系统名称空间"><a href="#文件系统名称空间" class="headerlink" title="文件系统名称空间"></a>文件系统名称空间</h2><p>HDFS支持传统的<strong>分层文件组织结构</strong>。用户或应用程序可以在这些目录中创建目录和存储文件。文件系统名称空间层次结构跟大多数现有的文件系统都很类似，支持创建和删除文件，将文件从一个目录移动到另一个目录，或者重命名文件。HDFS 还支持<strong>用户配额</strong>（user quotas）和<strong>访问权限</strong>（access permissions）。HDFS 不支持硬链接或软链接，但是不排除以后会实现这些特性的可能。</p>
@@ -108,7 +108,7 @@
 <p>应用程序可以指定文件的副本数量。复制因子可以在文件创建时指定，之后可以再更改。HDFS 中的文件是一次性写入的（除了附加和截断），而且任何时候都只能有一个写者（执行写操作的节点）。</p>
 <p>NameNode 决定数据块的复制操作。它会定期接收集群中的每个 DataNode 的心跳和数据块报告。接收到心跳意味着 DataNode 能够正常工作。数据块报告包含一个 DataNode 上的所有块的列表。</p>
 <p>下图表示一个具有 1 个 NameNode 和 8 个 DataNode 的集群，每个 DataNode 上都有自己的数据块，而 NameNode 会收集每个 DataNode 发送的数据块报告，并记录整个集群中的数据块情况，如数据块所属的文件，复制次数，数据块ID等。</p>
-<p><img src="/resources/93C9A23674E30A66F2256A412E5C9797.jpg" alt="IMAGE"></p>
+<p><img src="/resources/93C9A23674E30A66F2256A412E5C9797.jpg" alt="数据复制"></p>
 <h3 id="备份位置"><a href="#备份位置" class="headerlink" title="备份位置"></a>备份位置</h3><p>大型的 HDFS 实例通常运行在分布在多个机架上的计算机集群上。不同机架间的两个节点间的通信必须通过交换机。在大多数情况下，同一机架中的机器之间的网络带宽大于不同机架间的网络带宽。</p>
 <p>NameNode 可以通过 <strong><a href="http://hadoop.apache.org/docs/r2.8.0/hadoop-project-dist/hadoop-common/RackAwareness.html" target="_blank" rel="external">Hadoop Rack Awareness</a></strong> 判断每个 DataNode 属于哪个机架。一个简单都不是很理想的分配备份位置的策略就是把备份放在不同的机架上。这样可以避免整个机架出现故障时丢失数据，并且读取数据时也可以利用多个机架的带宽。该策略将数据备份均匀地分发到整个集群中，出现局部故障时也可以均衡负载，但是这也会增加写入数据的开销，因为一次写入需要在多个机架之间传输数据块。</p>
 <p>针对通用的情况，当备份次数为 3 时，HDFS 的备份放置策略是将一个副本放在本地机架上的一个节点上，另一个备份放在本地机架上的另一个节点上，最后一个副本放在不同的机架上的另一个节点上。这一策略减少了机架间的写入流量，一般都会提高写入性能。又因为整个机架故障的可能性远小于单个节点故障，所以该策略对数据可靠性和可用性保证影响不大。但是，它确实减少了读取数据时使用的整体网络带宽，因为块最终被放置在两个不同的机架上而不是三个，而且文件的副本也不会均匀分布在各个机架上。三分之二的副本在同一个机架上，另外三分之一在其他机架上均匀分布。但我们也得看到，这一策略明显提高了写入性能，还基本不影响数据的可靠性或读取性能。</p>
@@ -185,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/post/hadoop-hdfs/" data-id="cj5b9jo340000k1sipmext4yy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/post/hadoop-hdfs/" data-id="cj5d67qqy0001e5si0ggjzwlf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop-HDFS/">Hadoop HDFS</a></li></ul>
@@ -195,6 +195,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/post/centos-install-hadoop/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CentOS 7 下安装 Hadoop
+        
+      </div>
+    </a>
   
   
     <a href="/post/introduction-hadoop/" id="article-nav-older" class="article-nav-link-wrap">

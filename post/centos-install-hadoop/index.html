@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CentOS 7 下安装 Hadoop | 世界の角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要介绍了 CentOS 7 下安装 Hadoop 的流程，该流程只需轻微修改即可适用于其他类 Unix 操作系统。">
+<meta name="keywords" content="Hadoop CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7 下安装 Hadoop">
+<meta property="og:url" content="http://yoursite.com/post/centos-install-hadoop/index.html">
+<meta property="og:site_name" content="世界の角落">
+<meta property="og:description" content="本文主要介绍了 CentOS 7 下安装 Hadoop 的流程，该流程只需轻微修改即可适用于其他类 Unix 操作系统。">
+<meta property="og:image" content="http://yoursite.com/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg%20=1201x354">
+<meta property="og:image" content="http://yoursite.com/resources/32A3745908F1A0A1EE795D272A1FA9D7.jpg%20=1148x292">
+<meta property="og:image" content="http://yoursite.com/resources/ADB0DFC04A6F77694BF60CD4C12FED4A.jpg%20=1198x339">
+<meta property="og:updated_time" content="2017-07-21T01:11:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 7 下安装 Hadoop">
+<meta name="twitter:description" content="本文主要介绍了 CentOS 7 下安装 Hadoop 的流程，该流程只需轻微修改即可适用于其他类 Unix 操作系统。">
+<meta name="twitter:image" content="http://yoursite.com/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg%20=1201x354">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+        
+          <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="Search"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+        
+      <div class="outer">
+        <section id="main"><article id="post-centos-install-hadoop" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+      
+      <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      CentOS 7 下安装 Hadoop
+    </h1>
+  
+
+          <a href="/post/centos-install-hadoop/" class="article-date">
+  <time datetime="2017-07-21T01:05:47.000Z" itemprop="datePublished">2017-07-21</time>
+</a>
+      </header>
+      
+      
+  </div>
+    <div class="article-inner">
+      
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要介绍了 CentOS 7 下安装 Hadoop 的流程，该流程只需轻微修改即可适用于其他类 Unix 操作系统。</p>
+<a id="more"></a>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><p>Hadoop 是基于 Java 编写的编程框架，所以必须先要有 Java 运行环境（JRE），同时为了之后的开发与调试需要，推荐安装 Java 开发工具包（JDK），JDK 中已包含了 JRE。</p>
+<h3 id="检查已安装版本"><a href="#检查已安装版本" class="headerlink" title="检查已安装版本"></a>检查已安装版本</h3><p>可以使用以下命令检查 Java 是否安装，以及安装的版本</p>
+<figure class="highlight bash"><figcaption><span>查看 Java 版本</span></figcaption><table><tr><td class="code"><pre><div class="line">$ java -version</div><div class="line">java version <span class="string">"1.7.0_141"</span></div><div class="line">OpenJDK Runtime Environment (rhel-2.6.10.1.el7_3-x86_64 u141-b02)</div><div class="line">OpenJDK 64-Bit Server VM (build 24.141-b02, mixed mode)</div></pre></td></tr></table></figure>
+<h3 id="安装-Java"><a href="#安装-Java" class="headerlink" title="安装 Java"></a>安装 Java</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ sudo yum install java-1.8.0-openjdk.x86_64</div><div class="line">...</div><div class="line"></div><div class="line">$ java -version</div><div class="line">openjdk version <span class="string">"1.8.0_131"</span></div><div class="line">OpenJDK Runtime Environment (build 1.8.0_131-b12)</div><div class="line">OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)</div></pre></td></tr></table></figure>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><h3 id="下载二进制文件压缩包"><a href="#下载二进制文件压缩包" class="headerlink" title="下载二进制文件压缩包"></a>下载二进制文件压缩包</h3><p>接下来我们需要到 <a href="http://hadoop.apache.org/releases.html" target="_blank" rel="external">Hadoop 官网</a>下载 Hadoop 二进制文件。</p>
+<p><img src="/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg =1201x354" alt="IMAGE"></p>
+<p><img src="/resources/32A3745908F1A0A1EE795D272A1FA9D7.jpg =1148x292" alt="IMAGE"></p>
+<p>我们可以点击该链接进行下载，也可以复制该链接使用 wget 命令进行下载。</p>
+<figure class="highlight bash"><figcaption><span>下载 Hadoop 2.8.0 二进制文件</span></figcaption><table><tr><td class="code"><pre><div class="line">$ wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz</div></pre></td></tr></table></figure>
+<h3 id="验证下载的文件未被修改"><a href="#验证下载的文件未被修改" class="headerlink" title="验证下载的文件未被修改"></a>验证下载的文件未被修改</h3><p>使用 SHA-256 快速验证</p>
+<figure class="highlight bash"><figcaption><span>验证 hadoop-2.8.0.tar.gz</span></figcaption><table><tr><td class="code"><pre><div class="line">$ shasum -a 256 hadoop-2.8.0.tar.gz</div><div class="line">3c0c6053651970c3ce283c100ee3e4e257c7f2dd7d7f92c98c8b0a3a440c04a0  Applications/hadoop-2.8.0.tar.gz</div></pre></td></tr></table></figure>
+<p>你可以将输出结果与网页中的数字逐一比较，若相同说明该文件未被别人恶意修改。当然下图中只显示了一部分数字，你可以下载文件 hadoop-2.8.0.tar.gz.mds 查看完整的内容。</p>
+<p><img src="/resources/ADB0DFC04A6F77694BF60CD4C12FED4A.jpg =1198x339" alt="IMAGE"></p>
+<h3 id="解压压缩包"><a href="#解压压缩包" class="headerlink" title="解压压缩包"></a>解压压缩包</h3><figure class="highlight bash"><figcaption><span>解压二进制文件压缩包</span></figcaption><table><tr><td class="code"><pre><div class="line">$ tar -xzvf hadoop-2.8.0.tar.gz</div></pre></td></tr></table></figure>
+<h3 id="映射-Hadoop-主目录"><a href="#映射-Hadoop-主目录" class="headerlink" title="映射 Hadoop 主目录"></a>映射 Hadoop 主目录</h3><p>创建 Hadoop 主目录的符号链接。</p>
+<figure class="highlight bash"><figcaption><span>映射到</span><a href="/usr/local/hadoop">link</a></figcaption><table><tr><td class="code"><pre><div class="line">$ sudo ln -s /home/parallels/Applications/hadoop-2.8.0 /usr/<span class="built_in">local</span>/hadoop</div></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="JAVA-HOME"><a href="#JAVA-HOME" class="headerlink" title="JAVA_HOME"></a>JAVA_HOME</h3><p>此时如果你直接运行 Hadoop 将会出错。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ /usr/<span class="built_in">local</span>/hadoop/bin/hadoop</div><div class="line">Error: JAVA_HOME is not <span class="built_in">set</span> and could not be found.</div></pre></td></tr></table></figure>
+<p>所以我们就必须先找一下 java 的主目录，</p>
+<figure class="highlight bash"><figcaption><span>查找 java 可执行程序的路径</span></figcaption><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">which</span> java</div><div class="line">/usr/bin/java</div></pre></td></tr></table></figure>
+<p>再查看下该执行文件是否是链接，</p>
+<figure class="highlight bash"><figcaption><span>使用 readlink 查找链接文件的链接目标</span></figcaption><table><tr><td class="code"><pre><div class="line">$ readlink -f /usr/bin/java</div><div class="line">/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre/bin/java</div></pre></td></tr></table></figure>
+<p><code>-f</code> 会顺着链接链找到最终的实际物理位置，我们实际要找的是 Java 安装目录（主目录），而不是可执行程序 java 的执行目录。</p>
+<figure class="highlight bash"><figcaption><span>去掉 bin/java 后的路径才是我们要找的 Java 主目录</span></figcaption><table><tr><td class="code"><pre><div class="line">/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre/</div></pre></td></tr></table></figure>
+<p>最后我们要设置环境变量 JAVA_HOME，可以有以下选项：</p>
+<ul>
+<li>本次会话有效，关闭 shell 失效</li>
+<li>本 shell 中有效，其他 shell 无效</li>
+<li>本系统有效，所有 shell 都可以使用该环境变量</li>
+</ul>
+<p>在这之前，我们先来讨论下两种设置方法。</p>
+<p><strong>静态设置</strong></p>
+<p>我们可以选择静态设置 <code>JAVA_HOME</code> ，这样下次更改 Java 版本的话需要重新设置新的 <code>JAVA_HOME</code>。</p>
+<figure class="highlight plain"><figcaption><span>静态设置 JAVA_HOME</span></figcaption><table><tr><td class="code"><pre><div class="line">JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre/</div></pre></td></tr></table></figure>
+<p><strong>动态设置</strong></p>
+<p>或者，我们也可以选择使用 Shell 的<strong>命令展开式</strong>动态计算 <code>JAVA_HOME</code> 的值。</p>
+<figure class="highlight plain"><figcaption><span>动态计算 JAVA_HOME</span></figcaption><table><tr><td class="code"><pre><div class="line">JAVA_HOME=$(readlink -f /usr/bin/java | sed &quot;s:bin/java::&quot;)</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>sed</code> 用来截取正确的 <code>JAVA_HOME</code>。</p>
+</blockquote>
+<p>现在我们再来讨论不同作用域的环境变量的配置。</p>
+<p><strong>Shell 变量</strong></p>
+<p>在 Shell 中设置 <code>JAVA_HOME</code> 的值，立即生效，但只在当前会话中有效，关闭 Shell 时即会失效。</p>
+<figure class="highlight bash"><figcaption><span>Shell 中直接设置 JAVA_HOME</span></figcaption><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">export</span> JAVA_HOME=$(readlink -f /usr/bin/java | sed <span class="string">"s:bin/java::"</span>)</div></pre></td></tr></table></figure>
+<p><strong>Shell 环境参数</strong></p>
+<p>第二种是将设置语句写入 Shell 的启动配置文件，这样每次 Shell 启动时都会设置 JAVA_HOME，不会立即生效，可以使用 <code>source</code> 在当前 shell 中执行脚本中的命令 。</p>
+<figure class="highlight plain"><figcaption><span>将设置语句写入 Shell 的启动配置文件</span></figcaption><table><tr><td class="code"><pre><div class="line">...</div><div class="line">export JAVA_HOME=$(readlink -f /usr/bin/java | sed &quot;s:bin/java::&quot;)</div><div class="line">...</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>假设你当前使用的 shell 为 bash</span></figcaption><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">source</span> ~/.bashrc</div></pre></td></tr></table></figure>
+<p>每种 Shell 的启动配置文件名都不相同，但它们都位于用户主目录下。比如，bash 的启动配置文件是 <code>~/.bashrc</code>，zsh 的启动配置文件是 <code>~/.zshrc</code>。</p>
+<p><strong>系统环境变量</strong></p>
+<p>第三种是写入到系统启动配置文件 <code>/etc/profile</code>，每次用户登录系统时都会执行该文件中的命令，需要重启生效。</p>
+<figure class="highlight bash"><figcaption><span>/etc/profile</span></figcaption><table><tr><td class="code"><pre><div class="line">...</div><div class="line"><span class="built_in">export</span> JAVA_HOME=$(readlink -f /usr/bin/java | sed <span class="string">"s:bin/java::"</span>)</div><div class="line">...</div></pre></td></tr></table></figure>
+<h3 id="运行-Hadoop"><a href="#运行-Hadoop" class="headerlink" title="运行 Hadoop"></a>运行 Hadoop</h3><p>当你配置好了 <code>JAVA_HOME</code> 之后，Hadoop 应该就能执行了。</p>
+<figure class="highlight bash"><figcaption><span>成功执行结果</span></figcaption><table><tr><td class="code"><pre><div class="line">$ /usr/<span class="built_in">local</span>/hadoop/bin/hadoop</div><div class="line">Usage: hadoop [--config confdir] [COMMAND | CLASSNAME]</div><div class="line">  CLASSNAME            run the class named CLASSNAME</div><div class="line"> or</div><div class="line">  <span class="built_in">where</span> COMMAND is one of:</div><div class="line">  fs                   run a generic filesystem user client</div><div class="line">  version              <span class="built_in">print</span> the version</div><div class="line">  jar &lt;jar&gt;            run a jar file</div><div class="line">                       note: please use <span class="string">"yarn jar"</span> to launch</div><div class="line">                             YARN applications, not this <span class="built_in">command</span>.</div><div class="line">  checknative [-a|-h]  check native hadoop and compression libraries availability</div><div class="line">  distcp &lt;srcurl&gt; &lt;desturl&gt; copy file or directories recursively</div><div class="line">  archive -archiveName NAME -p &lt;parent path&gt; &lt;src&gt;* &lt;dest&gt; create a hadoop archive</div><div class="line">  classpath            prints the class path needed to get the</div><div class="line">                       Hadoop jar and the required libraries</div><div class="line">  credential           interact with credential providers</div><div class="line">  daemonlog            get/<span class="built_in">set</span> the <span class="built_in">log</span> level <span class="keyword">for</span> each daemon</div><div class="line">  trace                view and modify Hadoop tracing settings</div><div class="line"></div><div class="line">Most commands <span class="built_in">print</span> <span class="built_in">help</span> when invoked w/o parameters.</div></pre></td></tr></table></figure>
+<p>我们注意到每次执行 Hadoop 都必须输入一大串的路径名，其实我们可以再进行一些额外的配置工作简化对 Hadoop 命令的调用。当然，这是非必需的，可以根据自己的情况选择配置或不配置。</p>
+<p>我们首先得知道，shell 是通过环境变量 <code>PATH</code> 来查找可执行命令的，如果我们要调用的可执行命令不在 <code>PATH</code> 中，就需要给出明确的可执行命令的路径（相对路径或绝对路径）。</p>
+<p>这样，我们就可以采取两种策略，一种是在 <code>PATH</code> 中包含的目录里创建可执行命令的符号链接，一种是将可执行命令的路径添加到 <code>PATH</code> 中。</p>
+<h3 id="符号链接"><a href="#符号链接" class="headerlink" title="符号链接"></a>符号链接</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ sudo ln -s /home/parallels/Applications/hadoop-2.8.0/bin/hadoop /usr/bin/hadoop</div></pre></td></tr></table></figure>
+<h3 id="添加到-PATH"><a href="#添加到-PATH" class="headerlink" title="添加到 PATH"></a>添加到 <code>PATH</code></h3><p>既然还是设置环境变量，就存在之前讨论的作用域的问题，这个可以参考之前设置 <code>JAVA_HOME</code> 的流程。</p>
+<figure class="highlight bash"><figcaption><span>设置 PATH</span></figcaption><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">export</span> PATH=/home/parallels/Applications/hadoop-2.8.0/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure>
+<p>这里需要再提醒一下：我们是将可执行命令 <code>hadoop</code> 的执行<strong>目录</strong>，<strong>添加</strong>到 <code>PATH</code> 中，所以不要忘记加上原来的 <code>PATH</code> 的值。</p>
+<p>推荐设置 <code>PATH</code>，因为 Hadoop 的一些脚本命令都是基于相对地址进行设置。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/post/centos-install-hadoop/" data-id="cj5d67qqt0000e5sibi1huk5h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop-CentOS/">Hadoop CentOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/post/hadoop-hdfs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hadoop · 分布式文件操作系统 · HDFS</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+      </div>
+      
+        <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Sysiya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
