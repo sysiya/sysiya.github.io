@@ -12,14 +12,14 @@
 <meta property="og:url" content="http://yoursite.com/post/centos-install-hadoop/index.html">
 <meta property="og:site_name" content="世界の角落">
 <meta property="og:description" content="本文主要介绍了 CentOS 7 下安装 Hadoop 的流程，该流程只需轻微修改即可适用于其他类 Unix 操作系统。">
-<meta property="og:image" content="http://yoursite.com/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg%20=1201x354">
-<meta property="og:image" content="http://yoursite.com/resources/32A3745908F1A0A1EE795D272A1FA9D7.jpg%20=1148x292">
-<meta property="og:image" content="http://yoursite.com/resources/ADB0DFC04A6F77694BF60CD4C12FED4A.jpg%20=1198x339">
-<meta property="og:updated_time" content="2017-07-21T01:11:55.000Z">
+<meta property="og:image" content="http://yoursite.com/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg">
+<meta property="og:image" content="http://yoursite.com/resources/32A3745908F1A0A1EE795D272A1FA9D7.jpg">
+<meta property="og:image" content="http://yoursite.com/resources/ADB0DFC04A6F77694BF60CD4C12FED4A.jpg">
+<meta property="og:updated_time" content="2017-07-21T01:13:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7 下安装 Hadoop">
 <meta name="twitter:description" content="本文主要介绍了 CentOS 7 下安装 Hadoop 的流程，该流程只需轻微修改即可适用于其他类 Unix 操作系统。">
-<meta name="twitter:image" content="http://yoursite.com/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg%20=1201x354">
+<meta name="twitter:image" content="http://yoursite.com/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg">
   
   
     <link rel="icon" href="/favicon.png">
@@ -91,14 +91,14 @@
 <figure class="highlight bash"><figcaption><span>查看 Java 版本</span></figcaption><table><tr><td class="code"><pre><div class="line">$ java -version</div><div class="line">java version <span class="string">"1.7.0_141"</span></div><div class="line">OpenJDK Runtime Environment (rhel-2.6.10.1.el7_3-x86_64 u141-b02)</div><div class="line">OpenJDK 64-Bit Server VM (build 24.141-b02, mixed mode)</div></pre></td></tr></table></figure>
 <h3 id="安装-Java"><a href="#安装-Java" class="headerlink" title="安装 Java"></a>安装 Java</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ sudo yum install java-1.8.0-openjdk.x86_64</div><div class="line">...</div><div class="line"></div><div class="line">$ java -version</div><div class="line">openjdk version <span class="string">"1.8.0_131"</span></div><div class="line">OpenJDK Runtime Environment (build 1.8.0_131-b12)</div><div class="line">OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)</div></pre></td></tr></table></figure>
 <h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><h3 id="下载二进制文件压缩包"><a href="#下载二进制文件压缩包" class="headerlink" title="下载二进制文件压缩包"></a>下载二进制文件压缩包</h3><p>接下来我们需要到 <a href="http://hadoop.apache.org/releases.html" target="_blank" rel="external">Hadoop 官网</a>下载 Hadoop 二进制文件。</p>
-<p><img src="/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg =1201x354" alt="IMAGE"></p>
-<p><img src="/resources/32A3745908F1A0A1EE795D272A1FA9D7.jpg =1148x292" alt="IMAGE"></p>
+<p><img src="/resources/1C733206ADC97F9D6A43ED1E5CC720B7.jpg" alt="IMAGE"></p>
+<p><img src="/resources/32A3745908F1A0A1EE795D272A1FA9D7.jpg" alt="IMAGE"></p>
 <p>我们可以点击该链接进行下载，也可以复制该链接使用 wget 命令进行下载。</p>
 <figure class="highlight bash"><figcaption><span>下载 Hadoop 2.8.0 二进制文件</span></figcaption><table><tr><td class="code"><pre><div class="line">$ wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz</div></pre></td></tr></table></figure>
 <h3 id="验证下载的文件未被修改"><a href="#验证下载的文件未被修改" class="headerlink" title="验证下载的文件未被修改"></a>验证下载的文件未被修改</h3><p>使用 SHA-256 快速验证</p>
 <figure class="highlight bash"><figcaption><span>验证 hadoop-2.8.0.tar.gz</span></figcaption><table><tr><td class="code"><pre><div class="line">$ shasum -a 256 hadoop-2.8.0.tar.gz</div><div class="line">3c0c6053651970c3ce283c100ee3e4e257c7f2dd7d7f92c98c8b0a3a440c04a0  Applications/hadoop-2.8.0.tar.gz</div></pre></td></tr></table></figure>
 <p>你可以将输出结果与网页中的数字逐一比较，若相同说明该文件未被别人恶意修改。当然下图中只显示了一部分数字，你可以下载文件 hadoop-2.8.0.tar.gz.mds 查看完整的内容。</p>
-<p><img src="/resources/ADB0DFC04A6F77694BF60CD4C12FED4A.jpg =1198x339" alt="IMAGE"></p>
+<p><img src="/resources/ADB0DFC04A6F77694BF60CD4C12FED4A.jpg" alt="IMAGE"></p>
 <h3 id="解压压缩包"><a href="#解压压缩包" class="headerlink" title="解压压缩包"></a>解压压缩包</h3><figure class="highlight bash"><figcaption><span>解压二进制文件压缩包</span></figcaption><table><tr><td class="code"><pre><div class="line">$ tar -xzvf hadoop-2.8.0.tar.gz</div></pre></td></tr></table></figure>
 <h3 id="映射-Hadoop-主目录"><a href="#映射-Hadoop-主目录" class="headerlink" title="映射 Hadoop 主目录"></a>映射 Hadoop 主目录</h3><p>创建 Hadoop 主目录的符号链接。</p>
 <figure class="highlight bash"><figcaption><span>映射到</span><a href="/usr/local/hadoop">link</a></figcaption><table><tr><td class="code"><pre><div class="line">$ sudo ln -s /home/parallels/Applications/hadoop-2.8.0 /usr/<span class="built_in">local</span>/hadoop</div></pre></td></tr></table></figure>
@@ -152,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/post/centos-install-hadoop/" data-id="cj5d67qqt0000e5sibi1huk5h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/post/centos-install-hadoop/" data-id="cj5d6e4ee0000mksio99n48f9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop-CentOS/">Hadoop CentOS</a></li></ul>
