@@ -127,6 +127,9 @@ body {
   font: 18px "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   -webkit-text-size-adjust: 100%;
 }
+a {
+  text-decoration: none;
+}
 .outer:before,
 .outer:after {
   content: "";
@@ -174,8 +177,6 @@ body {
 .mobile-nav-on #wrap {
   left: 280px;
 }
-.article-date,
-.article-category-link,
 .archive-year {
   text-decoration: none;
   text-transform: uppercase;
@@ -183,7 +184,6 @@ body {
   color: #00bcd4;
   margin-bottom: 2em;
 }
-.article-entry blockquote,
 .archive-article-inner {
   background: #fff;
   -webkit-box-shadow: 1px 2px 3px #ddd;
@@ -262,6 +262,9 @@ body {
 .article-entry dt {
   font-weight: bold;
 }
+.article-entry a {
+  text-decoration: none;
+}
 .article-entry a[rel='external']::after {
   font-family: FontAwesome;
   content: '\f08e';
@@ -326,6 +329,12 @@ body {
   min-height: 100vh;
   background: #fff;
 }
+#posts-container .header {
+  font-size: 1.5em;
+  letter-spacing: 0.25em;
+  text-align: center;
+  padding: 3em 0 2em 0;
+}
 #posts-container .post {
   display: -webkit-box;
   display: -moz-box;
@@ -375,6 +384,10 @@ body {
 #posts-container .post .inner-right .post-excerpt {
   padding: 1em 0;
   color: #586069;
+}
+#posts-container .post .inner-right .post-excerpt p {
+  line-height: 2em;
+  letter-spacing: 0.1em;
 }
 #posts-container .post .inner-right .article-more-link {
   text-align: end;
@@ -574,24 +587,29 @@ body {
   padding: 4em 0;
 }
 .article-date {
-  float: left;
+  letter-spacing: 0.2em;
   color: #999;
+  padding: 0 0 1em 0;
 }
 .article-category {
-  float: left;
-  line-height: 1em;
+  font-size: 1em;
+  padding: 0.5em 0;
   color: #ccc;
-  text-shadow: 0 1px #fff;
-  margin-left: 8px;
 }
-.article-category:before {
-  content: "\2022";
+.article-category .article-category-link {
+  color: #999;
 }
-.article-category-link {
-  margin: 0 12px 1em;
+.article-tag-list-item {
+  display: inline-block;
+  margin: 0.5em;
+  padding: 0.5em 0.5em;
+  background: rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+.article-tag-list-link {
+  color: #c0c0c0;
 }
 .article-header {
-  padding: 20px 20px 0;
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -727,12 +745,25 @@ a.article-title:hover {
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
 }
+.article-entry blockquote:before {
+  content: ' ';
+  width: 0.5em;
+  height: 100%;
+  position: absolute;
+  left: 0.1em;
+  background: #708090;
+}
 .article-entry blockquote {
+  background: #f5f5f5;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  font-size: 1.4em;
-  margin: 2em 20px;
+  font-size: 1em;
+  margin: 2em 0;
   padding: 0 2em;
   text-align: start;
+  position: relative;
+}
+.article-entry blockquote p {
+  padding: 0.5em 0;
 }
 .article-entry blockquote footer {
   font-size: 18px;
@@ -813,13 +844,6 @@ a.article-title:hover {
 .article-footer a:hover {
   color: #555;
 }
-.article-tag-list-item {
-  float: left;
-  margin-right: 10px;
-}
-.article-tag-list-link:before {
-  content: "#";
-}
 .article-comment-link {
   float: right;
 }
@@ -851,21 +875,9 @@ a.article-title:hover {
 }
 @media screen and (min-width: 768px) {
   #article-nav {
-    margin: 50px 0;
-  }
-  #article-nav:before {
-    width: 8px;
-    height: 8px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -4px;
-    margin-left: -4px;
-    content: "";
-    border-radius: 50%;
-    background: #ddd;
-    -webkit-box-shadow: 0 1px 2px #fff;
-    box-shadow: 0 1px 2px #fff;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 1em 0;
   }
 }
 .article-nav-link-wrap {
@@ -890,16 +902,14 @@ a.article-title:hover {
 }
 @media screen and (min-width: 768px) {
   #article-nav-newer {
-    float: left;
+    float: right;
     text-align: right;
-    padding-right: 20px;
   }
 }
 @media screen and (min-width: 768px) {
   #article-nav-older {
-    float: right;
+    float: left;
     text-align: left;
-    padding-left: 20px;
   }
 }
 .article-nav-caption {
@@ -1213,9 +1223,9 @@ a.article-title:hover {
   font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
 }
 .article-entry code {
-  background: #262a30;
-  text-shadow: 0 1px #fff;
+  background: #cccbcb;
   padding: 0 0.3em;
+  border-radius: 4px;
 }
 .article-entry pre code {
   background: none;
@@ -1224,7 +1234,7 @@ a.article-title:hover {
 }
 .article-entry .highlight {
   font-size: 16px;
-  background: #262e3d;
+  margin: 2em 0;
 }
 .article-entry .highlight pre {
   border: none;
