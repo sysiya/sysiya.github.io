@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Node.js 模块系统全面解析 | 世界の角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什么是模块模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。 比如 String.indexOf() 只是一个提供查找字符串中某个字符串匹配的位置的函数；而 String 对象则是一个封装了多个字符串操作函数及属性的模块。 JavaScript 模块在 JavaScript 的早期语言规范（ES6 之前）中并没有给出模块系统">
+<meta name="keywords" content="Node.js Module 模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 模块系统全面解析">
+<meta property="og:url" content="http://yoursite.com/post/node-module-system/index.html">
+<meta property="og:site_name" content="世界の角落">
+<meta property="og:description" content="什么是模块模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。 比如 String.indexOf() 只是一个提供查找字符串中某个字符串匹配的位置的函数；而 String 对象则是一个封装了多个字符串操作函数及属性的模块。 JavaScript 模块在 JavaScript 的早期语言规范（ES6 之前）中并没有给出模块系统">
+<meta property="og:image" content="http://yoursite.com/resources/EFE85A9215E3D908993DED77C4F2574A.jpg">
+<meta property="og:image" content="http://yoursite.com/resources/FCCF41CD4BAF5C85BEB4FD311AD67BA7.jpg">
+<meta property="og:updated_time" content="2017-07-30T14:25:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js 模块系统全面解析">
+<meta name="twitter:description" content="什么是模块模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。 比如 String.indexOf() 只是一个提供查找字符串中某个字符串匹配的位置的函数；而 String 对象则是一个封装了多个字符串操作函数及属性的模块。 JavaScript 模块在 JavaScript 的早期语言规范（ES6 之前）中并没有给出模块系统">
+<meta name="twitter:image" content="http://yoursite.com/resources/EFE85A9215E3D908993DED77C4F2574A.jpg">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+        
+          <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+        
+      <div class="outer">
+        <section id="main"><article id="post-node-module-system" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+      
+      <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Node.js 模块系统全面解析
+    </h1>
+  
+
+          <a href="/post/node-module-system/" class="article-date">
+  <time datetime="2017-07-30T13:54:55.000Z" itemprop="datePublished">2017-07-30</time>
+</a>
+          
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js-Module-模块/">Node.js Module 模块</a></li></ul>
+
+      </header>
+      
+  </div>
+    <div class="article-inner">
+      
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是模块"><a href="#什么是模块" class="headerlink" title="什么是模块"></a>什么是模块</h2><p>模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。</p>
+<p>比如 <code>String.indexOf()</code> 只是一个提供查找字符串中某个字符串匹配的位置的<strong>函数</strong>；而 <code>String</code> 对象则是一个封装了多个字符串操作函数及属性的<strong>模块</strong>。</p>
+<h2 id="JavaScript-模块"><a href="#JavaScript-模块" class="headerlink" title="JavaScript 模块"></a>JavaScript 模块</h2><p>在 <strong>JavaScript</strong> 的早期语言规范（ES6 之前）中并没有给出模块系统的概念定义，但一般来说，我们可以把全局对象当作是一个 <strong>JavaScript</strong> 模块，在浏览器中的 <strong>JavaScript</strong> 的实现就是这样做的。</p>
+<p>但是如果所有的模块都是全局对象（即都放在了一个全局命名空间内），包括你自己定义的模块以及第三方模块，这样难免会发生模块名冲突问题（即定义了同名的全局对象），也称为<strong>全局命名空间污染</strong>。</p>
+<blockquote>
+<p><strong>命名空间</strong>在这里指的是所有对象的名称集合。</p>
+</blockquote>
+<p>在 ES6 版本中，<strong>JavaScript</strong> 也实现了模块系统，关于 ES6 模块系统的详细内容会在另一篇文章里讲解。</p>
+<h2 id="Node-js-模块系统"><a href="#Node-js-模块系统" class="headerlink" title="Node.js 模块系统"></a>Node.js 模块系统</h2><p><strong>Node.js</strong> 定义了一个简单但强大的模块系统，使用该模块系统，你就可以定义不同命名空间下的模块了。</p>
+<p>该系统有 3 个核心<strong>全局对象</strong>：</p>
+<ul>
+<li><code>require</code> ——  导入当前模块依赖的模块</li>
+<li><code>module</code>  ——  记录当前模块的元属性</li>
+<li><code>exports</code> ——  暴露当前模块的数据或接口</li>
+</ul>
+<p>虽说是<strong>全局对象</strong>，但这个<strong>全局</strong>并不意味着不同模块间会共享共享这三个对象，恰恰相反，每个模块的这三个对象都是独立的。那么这里的<strong>全局</strong>实际上是指你可以在单个模块中的任意位置使用这三个对象。</p>
+<p>我们先来看看浏览器中 <strong>JavaScript</strong> 的全局模块。</p>
+<p>先创建 <code>a.js</code> 和 <code>b.js</code>。</p>
+<figure class="highlight js"><figcaption><span>a.js</span></figcaption><table><tr><td class="code"><pre><div class="line">value = <span class="string">'a.js'</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>b.js</span></figcaption><table><tr><td class="code"><pre><div class="line">value = <span class="string">'b.js'</span></div></pre></td></tr></table></figure>
+<p>然后在 <code>index.html</code> 中引用这两个 <strong>JavaScript</strong> 文件。</p>
+<figure class="highlight html"><figcaption><span>index.html</span></figcaption><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;!Doctype html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> value = <span class="string">'index.html'</span></div><div class="line">  <span class="built_in">console</span>.log(value)  <span class="comment">// index.html</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"a.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="built_in">console</span>.log(value)  <span class="comment">// a.js</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"b.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="built_in">console</span>.log(value)  <span class="comment">// b.js</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>从运行结果可以看出，<code>index.html</code>、<code>a.js</code> 和 <code>b.js</code> 共享了 <code>value</code> 变量。</p>
+<p>而如果我们再创建一个 <code>index.js</code> 文件，并使用 <code>node index.js</code> 运行。</p>
+<figure class="highlight js"><figcaption><span>index.js</span></figcaption><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> value = <span class="string">'index.js'</span></div><div class="line"><span class="built_in">console</span>.log(value)  <span class="comment">// index.js</span></div><div class="line"></div><div class="line"><span class="built_in">require</span>(<span class="string">'./a.js'</span>)</div><div class="line"><span class="built_in">console</span>.log(value)  <span class="comment">// index.js</span></div><div class="line"></div><div class="line"><span class="built_in">require</span>(<span class="string">'./b.js'</span>)</div><div class="line"><span class="built_in">console</span>.log(value)  <span class="comment">// index.js</span></div></pre></td></tr></table></figure>
+<p>从运行结果可见：<code>index.js</code>、<code>a.js</code> 和 <code>b.js</code> 并没有共享 <code>value</code> 变量。</p>
+<h2 id="如何引入模块"><a href="#如何引入模块" class="headerlink" title="如何引入模块"></a>如何引入模块</h2><p>在 <strong>Node.js</strong> 中，你可以使用 <code>require</code> 全局函数对象，导入定义好的 <strong>Node.js</strong> 模块。</p>
+<figure class="highlight js"><figcaption><span>require 语法</span></figcaption><table><tr><td class="code"><pre><div class="line">[ * ] <span class="built_in">require</span>( [ <span class="built_in">String</span> ] moduleName )</div></pre></td></tr></table></figure>
+<p><code>require</code> 函数接受模块名作为字符串参数，</p>
+<ul>
+<li>解析模块的真实路径</li>
+<li>加载模块</li>
+<li>返回模块定义的导出对象</li>
+</ul>
+<p><code>require</code> 的一般处理流程如下：</p>
+<p><img src="/resources/EFE85A9215E3D908993DED77C4F2574A.jpg" alt="require 的一般处理流程"></p>
+<h3 id="引入-Node-内核模块"><a href="#引入-Node-内核模块" class="headerlink" title="引入 Node 内核模块"></a>引入 Node 内核模块</h3><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="built_in">console</span>.log(fs)</div></pre></td></tr></table></figure>
+<p>以上代码加载了 Node 内核模块 <code>fs</code>，并返回一个对象。</p>
+<p>我们将字符串 <code>&#39;fs&#39;</code> 作为参数传递给全局函数 <code>require()</code>，得到了返回结果——一个对象（更具体点说，是一个包含本地文件系统的相关属性与操作的对象）。</p>
+<p><strong>那么 <code>require()</code> 是将我们的输入字符串 <code>&#39;fs&#39;</code> 转化成输出对象的呢？</strong></p>
+<p>首先，<code>require()</code> 会检查输入的字符串 <code>&#39;fs&#39;</code> 是否匹配预定义的 Node 内核模块名，若匹配，则返回一个 <strong>JavaScript</strong> 对象。</p>
+<p>下面就是 <strong>Node.js</strong> 8.1.4 内核模块名列表（只列举来稳定版本的模块名）：</p>
+<table>
+<thead>
+<tr>
+<th>模块名</th>
+<th>模块描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>assert</td>
+<td>提供断言测试功能</td>
+</tr>
+<tr>
+<td>buffer</td>
+<td>提供与八进制流交互功能，可用于网络流和文件系统操作</td>
+</tr>
+<tr>
+<td>child_process</td>
+<td>提供创建子进程功能</td>
+</tr>
+<tr>
+<td>cluster</td>
+<td>提供创建集群功能</td>
+</tr>
+<tr>
+<td>console</td>
+<td>提供调试控制台</td>
+</tr>
+<tr>
+<td>crypto</td>
+<td>提供加密功能</td>
+</tr>
+<tr>
+<td>dgram</td>
+<td>提供 UDP 数据包套接字的实现</td>
+</tr>
+<tr>
+<td>dns</td>
+<td>提供 DNS 域名查找与 DNS 服务器连接</td>
+</tr>
+<tr>
+<td>events</td>
+<td>提供事件触发与事件侦听功能</td>
+</tr>
+<tr>
+<td>fs</td>
+<td>提供文件系统 I/O 操作功能</td>
+</tr>
+<tr>
+<td>http</td>
+<td>提供 HTTP 服务器和客户端</td>
+</tr>
+<tr>
+<td>https</td>
+<td>提供 HTTPS（HTTP protocol over TLS/SSL） 的实现</td>
+</tr>
+<tr>
+<td>module</td>
+<td>提供模块加载功能</td>
+</tr>
+<tr>
+<td>net</td>
+<td>提供创建基于流的 TCP 或 IPC 服务器和客户端功能，使用异步的方式</td>
+</tr>
+<tr>
+<td>os</td>
+<td>提供操作系统相关实用方法</td>
+</tr>
+<tr>
+<td>path</td>
+<td>提供与文件与目录的路径相关操作</td>
+</tr>
+<tr>
+<td>querystring</td>
+<td>提供解析与格式化 URL 查询字符串功能</td>
+</tr>
+<tr>
+<td>readline</td>
+<td>提供允许从可读流中读取一行数据</td>
+</tr>
+<tr>
+<td>repl</td>
+<td>提供 <strong>Read-Eval-Print-Loop</strong> (REPL) 的实现</td>
+</tr>
+<tr>
+<td>stream</td>
+<td>提供流化数据的抽象接口</td>
+</tr>
+<tr>
+<td>string_decoder</td>
+<td>提供将 <code>Buffer</code> 对象解码成多字节 UTF-8 和 UTF-16 字符串功能</td>
+</tr>
+<tr>
+<td>timer</td>
+<td>提供函数的延迟调用功能</td>
+</tr>
+<tr>
+<td>tls</td>
+<td>提供 Transport Layer Security (TLS) 和 Secure Socket Layer (SSL) 协议的实现</td>
+</tr>
+<tr>
+<td>tty</td>
+<td>提供与 text terminal (“TTY”) 相关功能</td>
+</tr>
+<tr>
+<td>url</td>
+<td>提供 URL 解析功能</td>
+</tr>
+<tr>
+<td>util</td>
+<td>提供实用方法</td>
+</tr>
+<tr>
+<td>vm</td>
+<td>提供编译与运行代码</td>
+</tr>
+<tr>
+<td>zlib</td>
+<td>提供压缩功能</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>详情可见在 <strong>Node.js</strong> 在 GitHub 的<a href="https://github.com/nodejs/node/tree/master/lib" target="_blank" rel="external">源码</a></p>
+</blockquote>
+<p>需要注意的是，这些内核模块都是 Node 内部实现的，即使用了 C++ 代码来实现以上功能。</p>
+<h3 id="引入相对或绝对模块"><a href="#引入相对或绝对模块" class="headerlink" title="引入相对或绝对模块"></a>引入相对或绝对模块</h3><p><strong>Node.js</strong> 除了提供系统基础的内核模块外，还允许开发者定义自己的模块，并可以在 <strong>JavaScript</strong> 文件中导入该模块。</p>
+<p><strong>Node.js</strong> 允许以下方式定义模块：</p>
+<ul>
+<li><strong>JavaScript</strong> 文件，可包含 ‘.js’ 后缀名或不包含 ‘.js’ 后缀名</li>
+<li>JSON 文件，必须包含 ‘.json’ 后缀名</li>
+<li>C++ 编译的二进制插件，必须包含 ‘.node’ 后缀名</li>
+</ul>
+<p><strong>Node.js</strong> 允许我们使用以下语法引用上述模块：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'/$&#123;module_name&#125;'</span>)</div><div class="line"><span class="built_in">require</span>(<span class="string">'./$&#123;module_name&#125;'</span>)</div><div class="line"><span class="built_in">require</span>(<span class="string">'../$&#123;module_name&#125;'</span>)</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>${module_name}</code> 为任意的模块名。</p>
+</blockquote>
+<p>其中，以 <code>/</code> 开头的为绝对模块，以 <code>./hello</code> 和 <code>../hello</code> 开头的为相对模块。</p>
+<p>当我们使用以下语句加载 <strong>hello</strong> 模块时：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'./hello'</span>)</div></pre></td></tr></table></figure>
+<p>字符串 <code>&#39;./hello&#39;</code> 以 <code>&#39;./&#39;</code> 开头，那么 <strong>hello</strong> 模块将当作相对模块，然后解析其绝对路径。<br>假设当前目录 (即 <code>&#39;.&#39;</code>) 是 <code>/User/sysyiya/dev/</code>，那么 <strong>Node.js</strong> 首先会把 <strong>hello</strong> 模块当作<strong>文件模块</strong>，依次判断以下文件是否存在：</p>
+<ol>
+<li><code>/User/sysyiya/dev/hello</code></li>
+<li><code>/User/sysyiya/dev/hello.js</code></li>
+<li><code>/User/sysyiya/dev/hello.json</code></li>
+<li><code>/User/sysyiya/dev/hello.node</code></li>
+</ol>
+<p><strong>Node.js</strong> 会依次查找以上文件，当找到符合要求的文件，就不再继续向下寻找。</p>
+<p>如果以上四个文件都没有找到，<strong>Node.js</strong> 会尝试把 <strong>hello</strong> 模块当作<strong>目录模块</strong>，查找 <code>/User/sysyiya/dev/hello/</code> 目录是否存在。</p>
+<p>如果目录 <code>/User/sysyiya/dev/hello/</code> 存在，那么就查找该目录下的 <code>/User/sysyiya/dev/hello/package.json</code> 是否存在。<br>如果 <strong>JSON</strong> 文件 <code>/User/sysyiya/dev/hello/package.json</code> 不存在，或者文件存在，但没有设置 <code>main</code> 属性，那么 <strong>Node.js</strong> 将在 <code>/User/sysyiya/dev/hello/</code> 目录下查找 <strong>index 文件模块</strong>。</p>
+<p>如果 <strong>JSON</strong> 文件 <code>/User/sysyiya/dev/hello/package.json</code> 存在，并且已设置 <code>main</code> 属性。<br>假设 <code>/User/sysyiya/dev/hello/package.json</code> 内容如下：</p>
+<figure class="highlight json"><figcaption><span>/User/sysyiya/dev/hello/package.json</span></figcaption><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"main"</span>: <span class="string">"main"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么 <strong>Node.js</strong> 将会依次查找以下文件是否存在：</p>
+<ol>
+<li><code>/User/sysyiya/dev/hello/main</code></li>
+<li><code>/User/sysyiya/dev/hello/main.js</code></li>
+<li><code>/User/sysyiya/dev/hello/main.json</code></li>
+<li><code>/User/sysyiya/dev/hello/main.node</code></li>
+</ol>
+<p>如果以上四个文件都不存在，又会查找 <code>/User/sysyiya/dev/hello/main/</code> 目录，一直重复以上过程，直到找到文件，或者找不到对应目录为止。</p>
+<p><img src="/resources/FCCF41CD4BAF5C85BEB4FD311AD67BA7.jpg" alt="相对或绝对模块查找流程图"></p>
+<h3 id="导入-node-modules-模块"><a href="#导入-node-modules-模块" class="headerlink" title="导入 node_modules 模块"></a>导入 node_modules 模块</h3><p><strong>Node.js</strong> 还允许一种更简单的查找模块的方式，就是用使用 <strong>node_modules 模块</strong>。</p>
+<p>通过创建一个 <code>node_modules</code> 目录，将<strong>文件模块</strong>或者<strong>目录模块</strong>放在该目录下，便可以使用与调用 <strong>Node.js</strong> 内核模块一样简洁的方式来调用自定义模块。</p>
+<p>假设 <code>node_modules</code> 目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">node_modules</div><div class="line">├── a.js</div><div class="line">├── b/</div><div class="line">│   └── index.js</div><div class="line">└── c/</div><div class="line">    ├── c.js</div><div class="line">    └── package.json</div></pre></td></tr></table></figure>
+<p>以上文件内容分别是</p>
+<figure class="highlight js"><figcaption><span>a.js</span></figcaption><table><tr><td class="code"><pre><div class="line">exports.id = <span class="string">'a.js'</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>b/index.js</span></figcaption><table><tr><td class="code"><pre><div class="line">exports.id = <span class="string">'b.js'</span></div></pre></td></tr></table></figure>
+<figure class="highlight json"><figcaption><span>c/package.json</span></figcaption><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"main"</span>: <span class="string">"c"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>c/c.js</span></figcaption><table><tr><td class="code"><pre><div class="line">exports.id = <span class="string">'c.js'</span></div></pre></td></tr></table></figure>
+<p>则可以通过以下命令调用 <strong>a</strong>、<strong>b</strong>、<strong>c</strong> 三个模块，并打印返回对象：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ node -e <span class="string">'console.log(require("a"))'</span></div><div class="line">&#123; id: <span class="string">'a.js'</span> &#125;</div><div class="line"></div><div class="line">$ node -e <span class="string">'console.log(require("b"))'</span></div><div class="line">&#123; id: <span class="string">'b.js'</span> &#125;</div><div class="line"></div><div class="line">$ node -e <span class="string">'console.log(require("c"))'</span></div><div class="line">&#123; id: <span class="string">'c.js'</span> &#125;</div></pre></td></tr></table></figure>
+<p>需要记住的一个关键点就是 <code>node_modules</code> 的位置，当你使用 <code>require()</code> 导入 <code>node_modules</code> 中的模块时，<code>node_modules</code> 应该位于以下位置：</p>
+<ul>
+<li>当前目录下</li>
+<li>当前目录的多级上级目录下</li>
+<li>全局目录下</li>
+</ul>
+<p>假设在 <code>/Users/sysiya/dev/playgroud/index.js</code> 中使用 <code>require(&#39;a&#39;)</code> 引入 <strong>a</strong> 模块，那么 <strong>Node.js</strong> 将会依次在以下目录中搜索 <strong>a</strong> 模块：</p>
+<ol>
+<li><code>/Users/sysiya/dev/playgroud/node_modules/</code></li>
+<li><code>/Users/sysiya/dev/node_modules/</code></li>
+<li><code>/Users/sysiya/node_modules/</code></li>
+<li><code>/Users/node_modules/</code></li>
+<li><code>/node_modules/</code></li>
+<li><code>/usr/local/lib/node_modules/</code></li>
+</ol>
+<p>1 ～ 5 分别是搜索从当前目录到根目录下的 <code>node_modules</code>；<br>6 是搜索全局目录，在作者的 <strong>macOS 10.12.6</strong> 上，该目录为 <code>/usr/local/lib/node_modules/</code>。</p>
+<p>还有一种特殊情况需要注意，如果当前目录的路径就是以 <code>node_modules</code> 结尾时，不会在当前目录的 <code>node_modules</code> 下寻找模块。</p>
+<p>即 <code>/Users/sysiya/dev/playgroud/node_modules/index.js</code> 的查询顺序为：</p>
+<ol>
+<li><code>/Users/sysiya/dev/playgroud/node_modules/</code></li>
+<li><code>/Users/sysiya/dev/node_modules/</code></li>
+<li><code>/Users/sysiya/node_modules/</code></li>
+<li><code>/Users/node_modules/</code></li>
+<li><code>/node_modules/</code></li>
+<li><code>/usr/local/lib/node_modules/</code></li>
+</ol>
+<p>注意第一次查询的是 <code>/Users/sysiya/dev/playgroud/node_modules/</code>，而不是 <code>/Users/sysiya/dev/playgroud/node_modules/node_modules/</code>。</p>
+<h2 id="定义模块"><a href="#定义模块" class="headerlink" title="定义模块"></a>定义模块</h2><p>之前就提过，<strong>Node.js</strong> 默认有三种方式创建模块：</p>
+<ul>
+<li><strong>JavaScript</strong> 文件</li>
+<li><strong>JSON</strong> 文件</li>
+<li><strong>Node</strong> 二进制文件（C++ 编译）</li>
+</ul>
+<p>实际上，你可以通过以下命令查看 <strong>Node.js</strong> 支持的扩展名。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ node -e <span class="string">'console.log(require.extensions)'</span></div><div class="line">&#123; <span class="string">'.js'</span>: [Function], <span class="string">'.json'</span>: [Function], <span class="string">'.node'</span>: [Function] &#125;</div></pre></td></tr></table></figure>
+<p>当你提供任何其他扩展名或者没有扩展名，<strong>Node.js</strong> 都会将其按照 <strong>JavaScript</strong> 文件内容解析。</p>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><p>使用 <strong>JavaScript</strong> 定义模块时，使用 <code>module.exports</code> 暴露导出对象。</p>
+<p><strong>导出对象</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 默认导出 &#123;&#125;</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 导出自定义对象</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">say</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'hello'</span></div><div class="line">  &#125;,</div><div class="line">  eat () &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'food'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">do</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'somthing'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>导出函数</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 导出函数</span></div><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'function'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 导出箭头函数</span></div><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'arrow'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><figure class="highlight json"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"sysiya"</span>,</div><div class="line">  <span class="attr">"age"</span>: <span class="number">21</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用 <code>require()</code> 导入 <strong>JSON</strong> 对象，有以下限制：</p>
+<ul>
+<li>不能导出函数</li>
+<li>导出的对象中也不能包括函数</li>
+</ul>
+<h3 id="C-插件"><a href="#C-插件" class="headerlink" title="C++ 插件"></a>C++ 插件</h3><p><strong>1. 创建 C++ 文件 <code>hello.cc</code></strong></p>
+<figure class="highlight cpp"><figcaption><span>hello.cc</span></figcaption><table><tr><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;node.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">namespace</span> demo &#123;</div><div class="line"></div><div class="line"><span class="keyword">using</span> v8::FunctionCallbackInfo;</div><div class="line"><span class="keyword">using</span> v8::Isolate;</div><div class="line"><span class="keyword">using</span> v8::Local;</div><div class="line"><span class="keyword">using</span> v8::Object;</div><div class="line"><span class="keyword">using</span> v8::String;</div><div class="line"><span class="keyword">using</span> v8::Value;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Method</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</div><div class="line">  Isolate* isolate = args.GetIsolate();</div><div class="line">  args.GetReturnValue().Set(String::NewFromUtf8(isolate, <span class="string">"world"</span>));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(Local&lt;Object&gt; exports)</span> </span>&#123;</div><div class="line">  NODE_SET_METHOD(exports, <span class="string">"hello"</span>, Method);</div><div class="line">&#125;</div><div class="line"></div><div class="line">NODE_MODULE(addon, init)</div><div class="line"></div><div class="line">&#125;  <span class="comment">// namespace demo</span></div></pre></td></tr></table></figure>
+<p><strong>2. 创建构建配置文件 <code>binding.gyp</code></strong></p>
+<figure class="highlight json"><figcaption><span>binding.gyp</span></figcaption><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"targets"</span>: [</div><div class="line">    &#123;</div><div class="line">      <span class="attr">"target_name"</span>: <span class="string">"addon"</span>,</div><div class="line">      <span class="attr">"sources"</span>: [ <span class="string">"hello.cc"</span> ]</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>3. 生成配置信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ node-gyp configure</div></pre></td></tr></table></figure>
+<blockquote>
+<p>首先需要安装 <code>node-gyp</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">&gt; $ npm install -g node-gyp</div><div class="line">&gt;</div></pre></td></tr></table></figure></p>
+<p>命令执行成功会生成 <code>build</code> 文件夹</p>
+</blockquote>
+<p><strong>4. 构建 <code>.node</code> 二进制文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ node-gyp build</div></pre></td></tr></table></figure>
+<blockquote>
+<p>生成 <code>build/Release/addon.node</code></p>
+</blockquote>
+
+      
+    </div>
+  <!--
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/post/node-module-system/" data-id="cj5qtl3oy00068gsidyohc2q8" class="article-share-link">分享</a>
+      
+        <a href="http://yoursite.com/post/node-module-system/#disqus_thread" class="article-comment-link">留言</a>
+      
+    </footer>
+  -->
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/post/centos-install-hadoop/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">CentOS 7 下安装 Hadoop</div>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+  
+</article>
+</section>
+        
+      </div>
+      
+        <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Sysiya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+<script>
+  var disqus_shortname = 'sysiya';
+  
+  var disqus_url = 'http://yoursite.com/post/node-module-system/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
