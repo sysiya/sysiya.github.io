@@ -5,19 +5,19 @@
   
   <title>Node.js 模块系统全面解析 | 世界の角落</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是模块模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。 比如 String.indexOf() 只是一个提供查找字符串中某个字符串匹配的位置的函数；而 String 对象则是一个封装了多个字符串操作函数及属性的模块。 JavaScript 模块在 JavaScript 的早期语言规范（ES6 之前）中并没有给出模块系统">
+  <meta name="description" content="本文详细介绍了 Node.js 模块系统，包括了如何引用模块以及定义模块。">
 <meta name="keywords" content="Node.js Module 模块">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js 模块系统全面解析">
 <meta property="og:url" content="http://yoursite.com/post/node-module-system/index.html">
 <meta property="og:site_name" content="世界の角落">
-<meta property="og:description" content="什么是模块模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。 比如 String.indexOf() 只是一个提供查找字符串中某个字符串匹配的位置的函数；而 String 对象则是一个封装了多个字符串操作函数及属性的模块。 JavaScript 模块在 JavaScript 的早期语言规范（ES6 之前）中并没有给出模块系统">
+<meta property="og:description" content="本文详细介绍了 Node.js 模块系统，包括了如何引用模块以及定义模块。">
 <meta property="og:image" content="http://yoursite.com/resources/EFE85A9215E3D908993DED77C4F2574A.jpg">
 <meta property="og:image" content="http://yoursite.com/resources/FCCF41CD4BAF5C85BEB4FD311AD67BA7.jpg">
-<meta property="og:updated_time" content="2017-07-30T14:25:25.000Z">
+<meta property="og:updated_time" content="2017-07-30T14:30:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js 模块系统全面解析">
-<meta name="twitter:description" content="什么是模块模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。 比如 String.indexOf() 只是一个提供查找字符串中某个字符串匹配的位置的函数；而 String 对象则是一个封装了多个字符串操作函数及属性的模块。 JavaScript 模块在 JavaScript 的早期语言规范（ES6 之前）中并没有给出模块系统">
+<meta name="twitter:description" content="本文详细介绍了 Node.js 模块系统，包括了如何引用模块以及定义模块。">
 <meta name="twitter:image" content="http://yoursite.com/resources/EFE85A9215E3D908993DED77C4F2574A.jpg">
   
   
@@ -85,7 +85,9 @@
       
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什么是模块"><a href="#什么是模块" class="headerlink" title="什么是模块"></a>什么是模块</h2><p>模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。</p>
+        <p>本文详细介绍了 Node.js 模块系统，包括了如何引用模块以及定义模块。</p>
+<a id="more"></a>
+<h2 id="什么是模块"><a href="#什么是模块" class="headerlink" title="什么是模块"></a>什么是模块</h2><p>模块指的是软件系统里可分离与重用的功能代码。这里的模块与专注于单一功能的函数是一样的，模块是同一主题的函数（和对象）的集合。</p>
 <p>比如 <code>String.indexOf()</code> 只是一个提供查找字符串中某个字符串匹配的位置的<strong>函数</strong>；而 <code>String</code> 对象则是一个封装了多个字符串操作函数及属性的<strong>模块</strong>。</p>
 <h2 id="JavaScript-模块"><a href="#JavaScript-模块" class="headerlink" title="JavaScript 模块"></a>JavaScript 模块</h2><p>在 <strong>JavaScript</strong> 的早期语言规范（ES6 之前）中并没有给出模块系统的概念定义，但一般来说，我们可以把全局对象当作是一个 <strong>JavaScript</strong> 模块，在浏览器中的 <strong>JavaScript</strong> 的实现就是这样做的。</p>
 <p>但是如果所有的模块都是全局对象（即都放在了一个全局命名空间内），包括你自己定义的模块以及第三方模块，这样难免会发生模块名冲突问题（即定义了同名的全局对象），也称为<strong>全局命名空间污染</strong>。</p>
@@ -368,7 +370,7 @@
     </div>
   <!--
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/post/node-module-system/" data-id="cj5qtl3oy00068gsidyohc2q8" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/post/node-module-system/" data-id="cj5qtq33w0006disii5j1i435" class="article-share-link">分享</a>
       
         <a href="http://yoursite.com/post/node-module-system/#disqus_thread" class="article-comment-link">留言</a>
       
