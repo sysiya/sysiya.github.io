@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript 函数探秘 · 02 · 函数调用 | 世界の角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 JavaScript 中，我们可以使用四种方式调用函数。  作为普通函数调用 作为对象的方法调用 作为构造器调用 使用 apply() 和 call() 方法调用">
+<meta name="keywords" content="JavaScript,Function">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 函数探秘 · 02 · 函数调用">
+<meta property="og:url" content="http://yoursite.com/post/javascript-function-2-function-invacation/index.html">
+<meta property="og:site_name" content="世界の角落">
+<meta property="og:description" content="在 JavaScript 中，我们可以使用四种方式调用函数。  作为普通函数调用 作为对象的方法调用 作为构造器调用 使用 apply() 和 call() 方法调用">
+<meta property="og:updated_time" content="2017-08-10T04:27:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 函数探秘 · 02 · 函数调用">
+<meta name="twitter:description" content="在 JavaScript 中，我们可以使用四种方式调用函数。  作为普通函数调用 作为对象的方法调用 作为构造器调用 使用 apply() 和 call() 方法调用">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+        
+          <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+        
+      <div class="outer">
+        <section id="main"><article id="post-javascript-function-2-function-invacation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+      
+      <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 函数探秘 · 02 · 函数调用
+    </h1>
+  
+
+          <a href="/post/javascript-function-2-function-invacation/" class="article-date">
+  <time datetime="2017-08-10T04:18:06.000Z" itemprop="datePublished">2017-08-10</time>
+</a>
+          
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Function/">Function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+      </header>
+      
+  </div>
+    <div class="article-inner">
+      
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 <strong>JavaScript</strong> 中，我们可以使用四种方式调用函数。</p>
+<ul>
+<li>作为普通函数调用</li>
+<li>作为对象的方法调用</li>
+<li>作为构造器调用</li>
+<li>使用 apply() 和 call() 方法调用</li>
+</ul>
+<a id="more"></a>
+<p>在研究四种调用方式之前，我们先来看看函数参数的特殊之处。</p>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>首先，我们来熟悉下<strong>实参</strong>与<strong>形参</strong>的概念。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a, b</span>) </span>&#123;&#125;</div><div class="line">fn(<span class="number">1</span>, array);</div></pre></td></tr></table></figure>
+<p>上面的代码片段中，<code>function fn(a, b) {}</code> 中的 <code>a</code> 与 <code>b</code> 是函数声明时定义的参数名，称之为<strong>形参</strong>。</p>
+<p>而 <code>fn(1, array);</code> 中的 <code>1</code> 和 <code>array</code> 是在函数调用时实际传递的参数，称之为<strong>实参</strong>。</p>
+<p>大多数语言，一般会要求实参与形参必须在数量上匹配，静态类型语言还要求类型匹配。</p>
+<p>但在 <strong>JavaScript</strong> 中，实参跟形参的数量可以不匹配，这是一个很有意思的特性，之后我们再讨论该特性的应用。</p>
+<p><strong>JavaScript</strong> 分两种策略来处理实参与形参不一致的问题。</p>
+<ul>
+<li>实参数量大于形参：不报错，并提供访问多余实参的方法。</li>
+<li>实参数量小于形参：不报错，未提供参数的形参值为 <code>undefinded</code>。</li>
+</ul>
+<p>实际上，当调用函数时，会<strong>隐式</strong>传递两个参数：<code>arguments</code> 和 <code>this</code>。</p>
+<blockquote>
+<p><strong>隐式</strong>表明这两个参数不需要出现在函数签名中，但可以在函数体内显式访问。</p>
+</blockquote>
+<h3 id="arguments-参数"><a href="#arguments-参数" class="headerlink" title="arguments 参数"></a>arguments 参数</h3><p><code>arguments</code> 是一个类数组结构的对象，储存了所有传递给该函数的显式实参。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="built_in">arguments</span>)&#125;)(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</div><div class="line"><span class="comment">// &lt;- &#123; 0: 1, 1: 2, 2: 3, 3: 4, length: 4, callee: fucntion, ... &#125;</span></div></pre></td></tr></table></figure>
+<h3 id="this-参数"><a href="#this-参数" class="headerlink" title="this 参数"></a>this 参数</h3><p><code>this</code> 参数比 <code>arguments</code> 参数更有趣也更重要。<code>this</code> 引用了一个与当前函数调用有关的隐式对象，这个对象称为<strong>函数上下文</strong> (function context)。</p>
+<blockquote>
+<p><strong>函数上下文</strong>的概念出自于<strong>面对对象编程范式</strong>，在面对对象中，函数声明在一个类中，而声明在类中的函数又被称作为<strong>方法</strong>，要调用方法，就可能通过一个类的实例来调用。而 <code>this</code> 就是指这个调用方法的实例。</p>
+</blockquote>
+<p>但在 <code>JavaScript</code> 中，情况发生了转变，因为 <code>JavaScript</code> 是一个多编程范式的编程语言，它不仅包含了<strong>面对对象编程范式</strong>，还包含了<strong>函数式编程范式</strong>。所以，在 <code>JavaScript</code> 中，函数不仅仅是作为方法来调用，还存在其他的调用方式。此时，我们将 <code>this</code> 称为<strong>调用上下文</strong> (invocation context) 也许更合适。</p>
+<h2 id="作为普通函数调用"><a href="#作为普通函数调用" class="headerlink" title="作为普通函数调用"></a>作为普通函数调用</h2><p>所谓的普通函数，只是除了通过之后要介绍的三种特殊调用方式之外的所有函数的统称。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 声明函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 通过 () 操作符调用</span></div><div class="line">foo();</div><div class="line"></div><div class="line"><span class="comment">// 声明后立即调用</span></div><div class="line">(<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;&#125;)()</div></pre></td></tr></table></figure>
+<p>需要注意的一点是 <code>(function fn() {})()</code> 其实是一个组合表达式。</p>
+<p>我们可以通过逐步分解来理解该表达式：</p>
+<ol>
+<li><code>function fn() {}</code> 是一个函数字面量。</li>
+<li><code>(function fn() {})</code> 是一个表达式，返回一个函数对象。</li>
+<li><code>(function fn() {})()</code> 是个函数调用表达式，通过 <code>()</code> 操作符调用该函数。</li>
+</ol>
+<p>我们再来看看，普通函数调用时 <code>this</code> 的值。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> &#125;)()  <span class="comment">// window</span></div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> &#125; &#125;)()() <span class="comment">// window</span></div></pre></td></tr></table></figure>
+<p>在普通函数中，<code>this</code> 指向全局对象 <code>window</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 启用严格模式</span></div><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> &#125;)() <span class="comment">// undefined</span></div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span> &#125; &#125;)()() <span class="comment">// undefined</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fn(); <span class="comment">// undefined</span></div><div class="line"></div><div class="line"><span class="built_in">window</span>.fn();  <span class="comment">// window</span></div></pre></td></tr></table></figure>
+<p><strong>严格模式</strong>下，普通函数调用的隐式参数 <code>this</code> 为 <code>undefined</code>。</p>
+<blockquote>
+<p>注意最后一条语句，通过 <code>window</code> 对象调用 <code>fn()</code> ，此时 <code>fn</code> 作为 <code>window</code> 对象的方法被调用，<code>this</code> 为 <code>window</code>。</p>
+</blockquote>
+<h3 id="作为对象的方法调用"><a href="#作为对象的方法调用" class="headerlink" title="作为对象的方法调用"></a>作为对象的方法调用</h3><p>当函数赋值给对象的属性时，我们只能通过 <code>.</code> 操作符调用该函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  <span class="attr">fn</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">obj.fn();</div><div class="line"></div><div class="line">fn(); <span class="comment">// 报错</span></div></pre></td></tr></table></figure>
+<p>此时，我们将这种与对象绑定在一起的函数称之为<strong>方法</strong>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> obj_1 = &#123;</div><div class="line">  <span class="attr">fn</span>: fn</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> obj_2 = &#123;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.fn(); <span class="comment">// window</span></div><div class="line">obj_1.fn();  <span class="comment">// obj_1</span></div><div class="line">obj_2.fn();  <span class="comment">// TypeError: obj_2.fn is not a function</span></div></pre></td></tr></table></figure>
+<p>方法中的 <code>this</code> 为调用该方法的对象。</p>
+<h2 id="作为构造器来调用"><a href="#作为构造器来调用" class="headerlink" title="作为构造器来调用"></a>作为构造器来调用</h2><p>当我们在普通函数调用前加上 <code>new</code> 关键字来创建一个对象时，我们一般称该函数为<strong>构造器</strong>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 该函数显式返回一个对象</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 普通函数调用</span></div><div class="line"><span class="keyword">var</span> obj = init();</div><div class="line"></div><div class="line"><span class="comment">// 该函数未显式返回一个对象</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.a = <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 构造器调用</span></div><div class="line"><span class="keyword">var</span> obj2 = <span class="keyword">new</span> Obj();</div></pre></td></tr></table></figure>
+<p>使用构造器语法创建一个对象，会执行一些隐式语句，下面给出一个大概的示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Obj</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  &lt;!-- 隐式语句 --&gt;</div><div class="line">  <span class="keyword">var</span> obj = &#123;&#125;;</div><div class="line">  obj.__proto__ = Obj.prototype;</div><div class="line">  <span class="keyword">this</span> = obj;</div><div class="line"></div><div class="line">  <span class="xml"><span class="comment">&lt;!-- 显式语句 --&gt;</span></span></div><div class="line">  this.a = 1;</div><div class="line"></div><div class="line">  <span class="comment">&lt;!-- 隐式语句 --&gt;</span></div><div class="line">  return obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>__proto__</code> 是对象的隐式属性，指向原型链的上级。<br><code>prototype</code> 是函数的隐式属性，指向函数原型，相当于面对对象中的类。<br><code>this</code> 参数为隐式创建的对象。</p>
+<p>另一个注意点，<code>new</code> 操作符会默认返回一个对象，但如果用户指定返回<strong>对象</strong>的话，将会覆盖默认返回的对象。然而，如果用户返回的是<strong>原始值</strong>的话，最终返回的仍是默认对象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// &#123; a: 1 &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// 返回原始值</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> <span class="number">1</span>; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// &#123; a: 1 &#125;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> <span class="string">'str'</span>; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// &#123; a: 1 &#125;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> <span class="literal">true</span>; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// &#123; a: 1 &#125;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> <span class="literal">null</span>; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// &#123; a: 1 &#125;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> <span class="literal">undefined</span>; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// &#123; a: 1 &#125;</span></div><div class="line"></div><div class="line"><span class="comment">// 返回对象</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> &#123; <span class="attr">a</span>: <span class="number">2</span> &#125;; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// &#123; a: 2 &#125;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> [<span class="number">1</span>]; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// [1]</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span>(<span class="params"></span>) </span>&#123; <span class="keyword">this</span>.a = <span class="number">1</span>; <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;; &#125;</div><div class="line"><span class="keyword">new</span> P();  <span class="comment">// function () &#123;&#125;</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用构造器时，使用新对象覆盖返回对象是没有实际意义，应避免这种用法。</p>
+</blockquote>
+<h2 id="使用-apply-和-call-方法调用"><a href="#使用-apply-和-call-方法调用" class="headerlink" title="使用 apply() 和 call() 方法调用"></a>使用 <code>apply()</code> 和 <code>call()</code> 方法调用</h2><p>有时，我们会想在调用函数时修改默认的 <code>this</code> 参数，<code>JavaScript</code> 提供两个方法可以实现对 <code>this</code> 参数的修改。</p>
+<p><code>apply</code> 和 <code>call</code> 都是函数对象特有的方法。</p>
+<p>两者唯一的不同在于接收的参数列表：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// apply(this, [param, param])</span></div><div class="line"><span class="built_in">String</span>.prototype.indexOf.apply(<span class="string">'abcd'</span>, [<span class="string">'b'</span>]);  <span class="comment">// 1</span></div><div class="line"></div><div class="line"><span class="comment">// call(this, param, param)</span></div><div class="line"><span class="built_in">String</span>.prototype.indexOf.call(<span class="string">'abcd'</span>, <span class="string">'b'</span>); <span class="comment">// 1</span></div></pre></td></tr></table></figure>
+<p>这两个方法，接收的第一个参数都将传递给 <code>this</code> 参数。<br>而 <code>apply</code> 的第二个参数必须是类数组结构的对象，该对象中的每一个数组元素都将传递给原函数的参数列表；<code>call</code> 则会将第二个参数及其之后的所有参数都传递给原函数的参数列表。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">args</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="built_in">arguments</span>; &#125;</div><div class="line"></div><div class="line">args.apply(<span class="literal">null</span>, [<span class="string">'a'</span>, <span class="string">'b'</span>], [<span class="string">'c'</span>], <span class="number">123</span>);</div><div class="line"><span class="comment">// &lt;- ["a", "b"]</span></div><div class="line"></div><div class="line">args.call(<span class="literal">undefined</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div><div class="line"><span class="comment">// &lt;- [1, 2, 3]</span></div></pre></td></tr></table></figure>
+<p>在回调函数中，我们常常会修改回调函数的 <code>this</code> 参数。</p>
+<p>比如，我们可以构建一个 <code>forEach</code> 函数，用来遍历数组，并对每个元素执行一些操作。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">forEach</span>(<span class="params">list, callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (!list <span class="keyword">instanceof</span> <span class="built_in">Array</span>) <span class="keyword">return</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> n = <span class="number">0</span>; n &lt; list.length; n++) &#123;</div><div class="line">    callback.call(list[n], n);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">forEach([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="keyword">function</span> (<span class="params">element, index</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(index + <span class="string">' : '</span> + element);</div><div class="line">&#125;</div><div class="line"><span class="comment">// &lt;-</span></div><div class="line"><span class="comment">// 0 : 1</span></div><div class="line"><span class="comment">// 1 : 2</span></div><div class="line"><span class="comment">// 2 : 3</span></div></pre></td></tr></table></figure>
+<h2 id="this-深入"><a href="#this-深入" class="headerlink" title="this 深入"></a>this 深入</h2><p>关于 <code>this</code> 参数，还有几点需要深入讨论一下。</p>
+<p><strong><code>this</code> 不会被继承</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">    <span class="attr">fn</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>);  <span class="comment">// 01. obj</span></div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>);  <span class="comment">// 02. Window</span></div><div class="line">        &#125;, <span class="number">1</span>);</div><div class="line">        (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="keyword">this</span>) &#125;)();  <span class="comment">// 03. Window</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">obj.fn();</div></pre></td></tr></table></figure>
+<ol>
+<li><code>obj.fn()</code> 通过对象 <code>obj</code> 调用 <code>fn</code>，所以 <code>fn</code> 的 <code>this</code> 参数为 <code>obj</code>。</li>
+<li><code>setTimeout</code> 的回调函数是一个普通函数调用，所以 <code>this</code> 参数为 <code>window</code>。</li>
+<li>内嵌函数也是作为普通函数调用，所以 <code>this</code> 参数为 <code>window</code>。</li>
+</ol>
+<blockquote>
+<p>内部函数的 <code>this</code> 参数与外部函数的 <code>this</code> 没有关联，即 <code>JavaScript</code> 默认不会将 外部函数的 <code>this</code> 参数传递给内部函数的 <code>this</code> 参数。<br>要想内部函数访问外部函数的 <code>this</code> 参数，就必须先在外部函数保存 <code>this</code> 参数到变量中（假设是 <code>self</code>），再在内部函数中访问 <code>self</code>即可。</p>
+</blockquote>
+<p><strong>在 DOM 事件的事件处理器中 <code>this</code> 为事件触发对象</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.querySelector(<span class="string">'#btn'</span>);</div><div class="line">btn.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);  <span class="comment">// HTMLButtonElement</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 模拟按钮点击，触发点击事件</span></div><div class="line">btn.click();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+  <!--
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/post/javascript-function-2-function-invacation/" data-id="cj6x1gnnr000htysi5kelsafo" class="article-share-link">分享</a>
+      
+        <a href="http://yoursite.com/post/javascript-function-2-function-invacation/#disqus_thread" class="article-comment-link">留言</a>
+      
+    </footer>
+  -->
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/post/javascript-array/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          JavaScript·数组
+        
+      </div>
+    </a>
+  
+  
+    <a href="/post/javascript-function-1-function-declaration/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">JavaScript 函数探秘 · 01 · 函数定义</div>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+  
+</article>
+</section>
+        
+      </div>
+      
+        <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Sysiya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+<script>
+  var disqus_shortname = 'sysiya';
+  
+  var disqus_url = 'http://yoursite.com/post/javascript-function-2-function-invacation/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
