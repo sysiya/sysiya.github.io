@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript · 对象 | 世界の角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对象(Object)是 JavaScript 中非常重要的一种数据类型。如果说函数是每种编程语言都不可或缺的部分，那么对象则是面对对象范式编程语言不可或缺的部分。">
+<meta name="keywords" content="JavaScript,Object">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript · 对象">
+<meta property="og:url" content="https://sysiya.github.io/post/javascript-object/index.html">
+<meta property="og:site_name" content="世界の角落">
+<meta property="og:description" content="对象(Object)是 JavaScript 中非常重要的一种数据类型。如果说函数是每种编程语言都不可或缺的部分，那么对象则是面对对象范式编程语言不可或缺的部分。">
+<meta property="og:updated_time" content="2017-09-01T08:03:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript · 对象">
+<meta name="twitter:description" content="对象(Object)是 JavaScript 中非常重要的一种数据类型。如果说函数是每种编程语言都不可或缺的部分，那么对象则是面对对象范式编程语言不可或缺的部分。">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+        
+          <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sysiya.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+        
+      <div class="outer">
+        <section id="main"><article id="post-javascript-object" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+      
+      <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript · 对象
+    </h1>
+  
+
+          <a href="/post/javascript-object/" class="article-date">
+  <time datetime="2017-09-01T08:03:04.000Z" itemprop="datePublished">2017-09-01</time>
+</a>
+          
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Object/">Object</a></li></ul>
+
+      </header>
+      
+  </div>
+    <div class="article-inner">
+      
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对象(Object)是 JavaScript 中非常重要的一种数据类型。如果说函数是每种编程语言都不可或缺的部分，那么对象则是面对对象范式编程语言不可或缺的部分。</p>
+<a id="more"></a>
+<h2 id="对象的结构"><a href="#对象的结构" class="headerlink" title="对象的结构"></a>对象的结构</h2><p>在 JavaScript 中，对象其实就是一种键值对组成的数据结构。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">key</span>: value,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中 <code>key</code> 可以用两种基本类型来表示：</p>
+<ul>
+<li><code>string</code></li>
+<li><code>symbol</code></li>
+</ul>
+<p>而 <code>value</code> 可以使用所有的数据类型来表示：</p>
+<ul>
+<li><code>undefined</code></li>
+<li><code>null</code></li>
+<li><code>boolean</code></li>
+<li><code>number</code></li>
+<li><code>string</code></li>
+<li><code>symbol</code></li>
+<li><code>object</code></li>
+</ul>
+<blockquote>
+<p>除了 <code>object</code> 是引用类型，其他都是基本类型。</p>
+</blockquote>
+<p>所以，<code>object</code> 内可以存储 <code>object</code> 数据类型，也就是允许嵌套。</p>
+<p>对象不是基本数据类型，因为对象的值不像其他基本数据类型一样存储 <strong>Primitive Value</strong>，而是存储一个地址，表示对象数据结构在内存中的存储位置的地址。一般也将该地址称为<strong>引用</strong>，所以对象被称为<strong>引用类型</strong>。</p>
+<blockquote>
+<p><strong>Primitive Value</strong>（原始值）</p>
+</blockquote>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>实际上，在 JavaScript 中，组成对象的键值对中的 <code>key</code> 有一个官方名称 - <code>property</code>。<strong>Property</strong> 是面对对象编程范式的一个术语，如 Java 中也是有 <strong>property</strong> 的概念。</p>
+<blockquote>
+<p><code>property</code>，属性。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'Li Lei'</span>,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 等价于</span></div><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  <span class="string">'name'</span>: <span class="string">'Li Lei'</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对象 <code>obj</code> 就具有一个属性（即键值对），属性名为 <code>name</code>，是一个字符串；属性值为 <code>Li Lei</code>，也是一个字符串。</p>
+<blockquote>
+<p>我们知道字符串需要使用 <code>&#39;&#39;</code> 或 <code>&quot;&quot;</code> 包裹起来，但这里的 <code>name</code> 并没有使用引号。<br>对象会将自动将未加引号的 <code>name</code> 当成字符串来处理，你也可以手动加上引号。</p>
+</blockquote>
+<p>属性名可以是字符串（可省略引号），也可以是 <code>symbol</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> name = <span class="built_in">Symbol</span>.for(<span class="string">'name'</span>);</div><div class="line"></div><div class="line"><span class="keyword">const</span> obj = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'Li Lei'</span>,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> obj2 = &#123;</div><div class="line">  [name]: <span class="string">'Li Lei'</span>,</div><div class="line">&#125;;</div><div class="line"></div><div class="line">obj.name    <span class="comment">// 'Li Lei'</span></div><div class="line">obj[<span class="string">'name'</span>] <span class="comment">// 'Li Lei'</span></div><div class="line">obj[name]   <span class="comment">// undefined</span></div><div class="line"></div><div class="line">obj2.name     <span class="comment">// undefined</span></div><div class="line">obj2[<span class="string">'name'</span>]  <span class="comment">// undefined</span></div><div class="line">obj2[name]    <span class="comment">// 'Li Lei'</span></div></pre></td></tr></table></figure>
+<p>我们使用 <code>Symbol.for()</code> 创建一个 <code>symbol</code>。</p>
+<p>在 <code>obj</code> 对象中，我们定义了一个<strong>字符串</strong>属性 <code>name</code>。</p>
+<p>在 <code>obj2</code> 对象中，我们使用<strong>属性表达式</strong>创建了一个 <strong>symbol</strong> 属性 <code>name</code>。</p>
+<blockquote>
+<p>我们可以将属性表达式的结果作为属性名，如果表达式的值不是 <code>symbol</code> 类型，那么就会隐式转换成字符串。</p>
+</blockquote>
+<h2 id="访问对象的属性"><a href="#访问对象的属性" class="headerlink" title="访问对象的属性"></a>访问对象的属性</h2><p>既然定义的对象的属性，自然也需要访问对象的属性，即通过对象的属性名获取对象的属性值。</p>
+<p>上一节，我们说到了定义对象属性的两种写法：</p>
+<ul>
+<li>普通属性写法（定义静态字符串）</li>
+<li>属性表达式写法（定义动态字符串和 <strong>symbol</strong>）</li>
+</ul>
+<p>其中，属性表达式的语法如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">[expression]</div></pre></td></tr></table></figure>
+<p>与定义属性相对应，访问属性也有两种写法：</p>
+<ul>
+<li>普通属性访问（通过静态字符串访问）</li>
+<li>属性表达式访问（通过动态字符串或 <strong>symbol</strong> 访问）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">obj.name    <span class="comment">// 'Li Lei'</span></div><div class="line">obj[<span class="string">'name'</span>] <span class="comment">// 'Li Lei'</span></div><div class="line">obj[name]   <span class="comment">// undefined</span></div><div class="line"></div><div class="line">obj2.name     <span class="comment">// undefined</span></div><div class="line">obj2[<span class="string">'name'</span>]  <span class="comment">// undefined</span></div><div class="line">obj2[name]    <span class="comment">// 'Li Lei'</span></div></pre></td></tr></table></figure>
+<p>上一节中，我们就使用了 <code>obj.name</code> 方式访问 <code>obj</code> 对象的字符串属性 <code>name</code>，返回的属性值 <code>&#39;Li Lei&#39;</code>。</p>
+<p>这就是使用了普通属性访问，通过 <code>.</code> 操作符来实现对象属性访问。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">object.property</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：<br>无法使用 <code>object.&#39;property&#39;</code> 访问对象的属性。</p>
+</blockquote>
+<p>另外，我们还使用了 <code>obj[&#39;name&#39;]</code> 方式访问。此时， <code>&#39;name&#39;</code> 就是一个表达式，返回一个字符串 <code>&#39;name&#39;</code>。而 <code>obj[&#39;name&#39;]</code> 返回 <code>obj</code> 对象的字符串属性 <code>name</code> 的属性值 <code>&#39;Li Lei&#39;</code>。</p>
+<p>语法如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">object[expression]</div></pre></td></tr></table></figure>
+<p>我们接着看 <code>obj[name]</code>，同样，<code>name</code> 是一个表达式，此时 <code>name</code> 不是返回一个字符串 <code>&#39;name&#39;</code>，而是返回变量 <code>name</code> 的值 <code>Symbol.for(&#39;name&#39;)</code>，这是一个 <code>symbol</code>。又因为 <code>obj</code> 对象并没有定义一个 <code>Symbol.for(&#39;name&#39;)</code> 的属性名，<code>&#39;obj[name]&#39;</code> 返回 <code>undefined</code>。</p>
+<ol>
+<li><code>name</code> =&gt; <code>Symbol.for(&#39;name&#39;)</code></li>
+<li><code>obj[name]</code> =&gt; <code>undefined</code></li>
+</ol>
+<h2 id="属性的特性"><a href="#属性的特性" class="headerlink" title="属性的特性"></a>属性的特性</h2><p>我们再接着深入了解下属性的特性(Attribute)。</p>
+<p>属性的 <code>Attribute</code> 指的是描述属性本身拥有的数据，也可以称为<strong>元数据</strong>。</p>
+<p>属性本身拥有哪些可描述的数据呢？</p>
+<p>比如是否可修改属性值。</p>
+<p>JavaScript 提供了 <code>Object.defineProperty</code> 和 <code>Reflect.defineProperty</code> 方法来定义对象的属性。该方法同时允许定义该属性的一些特性。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Object</span>.defineProperty(obj, prop, descriptor)</div><div class="line"><span class="built_in">Reflect</span>.defineProperty(obj, prop, descriptor)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这两个方法是等价的，其中 <code>Reflect</code> 是 ES6 新增的对象，是为了代替使用 <code>Object</code> 来操作对象。</p>
+</blockquote>
+<p>我们可以使用该方法定义一个与之前章节一摸一样的 <code>obj</code> 对象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> obj = &#123;&#125;;</div><div class="line"><span class="built_in">Reflect</span>.defineProperty(obj, <span class="string">'name'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'Li Lei'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;</div><div class="line"></div><div class="line">obj.name    <span class="comment">// 'Li Lei'</span></div><div class="line">obj[<span class="string">'name'</span>] <span class="comment">// 'Li Lei'</span></div></pre></td></tr></table></figure>
+<p>我们来分析来 <code>descriptor</code> 参数接收的对象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'Li Lei'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>enumerable</code> 是一个 <code>boolean</code>，表示是否可以通过某些遍历方法进行遍历。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> a = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</div><div class="line"><span class="built_in">Reflect</span>.defineProperty(a, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'A'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);  <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="comment">// 可以通过 for...in 遍历 a.upper</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">in</span> a) &#123;</div><div class="line">  <span class="built_in">console</span>.log(prop);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 'A'</span></div><div class="line"></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(a, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">false</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'A'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);  <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="comment">// 无法通过 for...in 遍历 a.upper</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">in</span> a) &#123;</div><div class="line">  <span class="built_in">console</span>.log(prop);</div><div class="line">&#125;</div><div class="line"><span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+<ul>
+<li><code>value</code> 表示属性值，默认为 <code>undefined</code>。</li>
+<li><code>writable</code> 是一个 <code>boolean</code>，表示属性值是否可以被修改。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> a = &#123;&#125;;</div><div class="line"><span class="built_in">Reflect</span>.defineProperty(a, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'A'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);  <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="comment">// 可以修改 a.upper 的属性值</span></div><div class="line">a.upper   <span class="comment">// 'A'</span></div><div class="line">a.upper = <span class="string">'AA'</span></div><div class="line">a.upper   <span class="comment">// 'AA'</span></div><div class="line"></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(a, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'A'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">false</span>,</div><div class="line">&#125;);  <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="comment">// 无法修改 a.upper 的属性值</span></div><div class="line">a.upper   <span class="comment">// 'A'</span></div><div class="line">a.upper = <span class="string">'AA'</span></div><div class="line">a.upper   <span class="comment">// 'A'</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>configurable</code> 是一个 <strong>boolean</strong>，表示是否能够再次修改该属性的特性以及删除该属性。</p>
+<ul>
+<li>当 <code>configurable = true</code>，<ul>
+<li>可以修改 <code>enumerable</code> 和 <code>writable</code>，<code>value</code> 只有当 <code>writable = true</code> 时才能修改，与 <code>configurable</code> 无关。</li>
+<li>可以删除属性。</li>
+</ul>
+</li>
+<li>当 <code>configurable = flase</code>,<ul>
+<li>不可以修改 <code>enumerable</code></li>
+<li>当 <code>writable = true</code> 时，可以修改 <code>writable = false</code>，之后无法再次修改 <code>writable</code></li>
+<li><code>value</code> 只有当 <code>writable = true</code> 时才能修改，与 <code>configurable</code> 无关。</li>
+<li>不可以删除属性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> [a, b] = [&#123;&#125;, &#123;&#125;];</div><div class="line"></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(a, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'A'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);  <span class="comment">// true</span></div><div class="line"></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(b, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">false</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'B'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);  <span class="comment">// true</span></div><div class="line"></div><div class="line">a.upper   <span class="comment">// 'A'</span></div><div class="line">b.upper   <span class="comment">// 'B'</span></div><div class="line"></div><div class="line"><span class="comment">// 可以再次配置 a.upper 的特性</span></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(a, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'AA'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);  <span class="comment">// true</span></div><div class="line">a.upper   <span class="comment">// 'AA'</span></div><div class="line"><span class="comment">// 可以删除 a.upper</span></div><div class="line"><span class="built_in">Reflect</span>.deleteProperty(a, <span class="string">'upper'</span>); <span class="comment">// true</span></div><div class="line">a.upper   <span class="comment">// undefined</span></div><div class="line"></div><div class="line"><span class="comment">// 不允许再次配置 b.upper 的特性(除了 writable)</span></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(b, <span class="string">'upper'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'BB'</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">false</span>,</div><div class="line">&#125;);  <span class="comment">// false</span></div><div class="line">b.upper   <span class="comment">// 'BB'</span></div><div class="line">b.upper = <span class="string">'B'</span></div><div class="line">b.upper   <span class="comment">// 'BB'</span></div><div class="line"></div><div class="line"><span class="comment">// 不可以删除 b.upper</span></div><div class="line"><span class="built_in">Reflect</span>.deleteProperty(b, <span class="string">'upper'</span>); <span class="comment">// false</span></div><div class="line">b.upper   <span class="comment">// 'BB'</span></div></pre></td></tr></table></figure>
+<h2 id="属性的-getter-和-setter"><a href="#属性的-getter-和-setter" class="headerlink" title="属性的 getter 和 setter"></a>属性的 getter 和 setter</h2><p>JavaScript 还提供了一种很有意思的设置与获取属性的方式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> obj = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">''</span>,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> proxy = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">''</span>,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(obj, <span class="string">'name'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">get</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">'['</span> + proxy.name + <span class="string">']'</span>;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">set</span>: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">    proxy.name = value;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">obj.name              <span class="comment">// "[]"</span></div><div class="line">obj.name = <span class="string">'Li Lei'</span>;</div><div class="line">proxy.name            <span class="comment">// "[Li Lei]"</span></div><div class="line">obj.name              <span class="comment">// "[Li Lei]"</span></div></pre></td></tr></table></figure>
+<p>我们可以通过 <code>Reflect.defineProperty</code> 和 <code>Object.defineProperty</code> 的参数 <code>descriptor</code> 的 <code>get</code> 和 <code>set</code> 配置项来定义属性的 <strong>getter</strong> 和 <strong>setter</strong>。</p>
+<p><strong>getter</strong> 和 <strong>setter</strong> 实际上都是函数。</p>
+<p><strong>getter</strong> 会在尝试获取对象的属性值时调用，函数返回值即对象访问表达式的值，即属性值。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">obj.name    <span class="comment">// "[]"</span></div><div class="line">obj[<span class="string">'name'</span>] <span class="comment">// "[]"</span></div></pre></td></tr></table></figure>
+<p><strong>setter</strong> 会在尝试设置对象的属性值时调用，执行函数体的内容，而不会执行默认的赋值操作。</p>
+<blockquote>
+<p>像不像 C++ 的重载赋值运算符。😏</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">obj.name = <span class="string">'Li Lei'</span>;</div><div class="line">proxy.name            <span class="comment">// "[Li Lei]"</span></div></pre></td></tr></table></figure>
+<p>但是，必须要注意的是，<code>value</code> 与 <code>writable</code> 是一对相关联的配置项，而 <code>set</code> 与 <code>get</code> 也是一对相关联的配置项，这两对配置项是互斥的。</p>
+<p>也就是说，使用 <code>defineProperty</code> 定义属性时无法同时使用这两对配置项，并且当你已经使用其中一对配置项配置过了属性，那么使用另一对配置项配置属性时会覆盖之前的配置(<code>configurable = true</code>)。</p>
+<p><strong>getter</strong> 和 <strong>setter</strong> 的真正用途是拦截对象属性的存取操作，很多框架都依赖该特性。</p>
+<h2 id="属性简写"><a href="#属性简写" class="headerlink" title="属性简写"></a>属性简写</h2><p>ES6 提供了一种简便书写同名属性的语法。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> name = <span class="string">'Li Lei'</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> obj = &#123; name &#125;;</div><div class="line"></div><div class="line"><span class="comment">// 等价于</span></div><div class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">name</span>: name &#125;;</div></pre></td></tr></table></figure>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>在面对对象编程语言中，方法是指定义在对象上的函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'Li Lei'</span>,</div><div class="line"></div><div class="line">  <span class="comment">// 方法</span></div><div class="line">  getName: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 JavaScript 中，方法实际上也是属性，因为函数在 JavaScript 也是一个<strong>对象</strong>。</p>
+<p><strong>方法</strong>这个术语有其特有的语境，所以我们大多数情况下会使用<strong>方法</strong>而不是<strong>属性</strong>去描述定义在对象里的函数。但有时概括性地介绍对象的属性时，你应该要知道方法也是属性。</p>
+<p>ES6 中也增加了方法的简写：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'Li Lei'</span>,</div><div class="line"></div><div class="line">  <span class="comment">// 简写方法</span></div><div class="line">  getName () &#123;</div><div class="line">    <span class="keyword">return</span> name;</div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="对象的静态方法"><a href="#对象的静态方法" class="headerlink" title="对象的静态方法"></a>对象的静态方法</h2><p>在面对对象编程语言中，静态方法指的是所有同一类型的对象的共享方法，且无法通过对象实例调用该方法。</p>
+<p>在 JavaScript 中，静态方法指的是定义在<strong>构造器</strong>(constructor) 上的方法。</p>
+<p><code>Object</code> 就是所有对象的构造器，本质上是一个函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">typeof</span> <span class="built_in">Object</span> <span class="comment">// "function"</span></div></pre></td></tr></table></figure>
+<p>而构造器 <code>Object</code> 创建的对象实例都继承于 <code>Object.prototype</code>，所以对象实例无法调用 <code>Object</code> 上的方法，而且只能通过 <code>Object.method</code> 来调用，这就符合了静态方法的定义了。</p>
+<p>我们可以使用 <code>Reflect.ownKeys</code> 或 <code>Object.getOwnPropertyNames</code> 方法来查看一个对象上的所有的属性（不包括继承的属性）。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Reflect</span>.ownKeys(<span class="built_in">Object</span>);</div><div class="line"><span class="comment">// 等价于</span></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyNames(<span class="built_in">Object</span>);</div></pre></td></tr></table></figure>
+<p>返回的结果中在不同的浏览器中可能不同。</p>
+<p><strong>Google Chrome</strong> 返回 25 个结果。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">[<span class="string">"length"</span>, <span class="string">"name"</span>, <span class="string">"arguments"</span>, <span class="string">"caller"</span>, <span class="string">"prototype"</span>, <span class="string">"assign"</span>, <span class="string">"getOwnPropertyDescriptor"</span>, <span class="string">"getOwnPropertyDescriptors"</span>, <span class="string">"getOwnPropertyNames"</span>, <span class="string">"getOwnPropertySymbols"</span>, <span class="string">"is"</span>, <span class="string">"preventExtensions"</span>, <span class="string">"seal"</span>, <span class="string">"create"</span>, <span class="string">"defineProperties"</span>, <span class="string">"defineProperty"</span>, <span class="string">"freeze"</span>, <span class="string">"getPrototypeOf"</span>, <span class="string">"setPrototypeOf"</span>, <span class="string">"isExtensible"</span>, <span class="string">"isFrozen"</span>, <span class="string">"isSealed"</span>, <span class="string">"keys"</span>, <span class="string">"entries"</span>, <span class="string">"values"</span>]</div></pre></td></tr></table></figure>
+<p>而 <strong>Safari</strong> 和 <strong>Firefox</strong> 只返回 23 个结果，不包括 <code>arguments</code> 和 <code>caller</code>。</p>
+<blockquote>
+<p>Google Chrome 版本： 60.0.3112.113<br>Safari 版本：10.1.2 (12603.3.8)<br>Firefox 版本：Developer Edition 56.0b6 (64 位)</p>
+</blockquote>
+<p>我们可以修改一下，以获取所有的方法而不是属性。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Reflect</span>.ownKeys(<span class="built_in">Object</span>)</div><div class="line">       .filter(<span class="function"><span class="params">key</span> =&gt;</span> <span class="keyword">typeof</span> <span class="built_in">Object</span>[key] === <span class="string">'function'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 返回 20 个结果</span></div><div class="line"><span class="number">0</span>: <span class="string">"assign"</span></div><div class="line"><span class="number">1</span>: <span class="string">"getOwnPropertyDescriptor"</span></div><div class="line"><span class="number">2</span>: <span class="string">"getOwnPropertyDescriptors"</span></div><div class="line"><span class="number">3</span>: <span class="string">"getOwnPropertyNames"</span></div><div class="line"><span class="number">4</span>: <span class="string">"getOwnPropertySymbols"</span></div><div class="line"><span class="number">5</span>: <span class="string">"is"</span></div><div class="line"><span class="number">6</span>: <span class="string">"preventExtensions"</span></div><div class="line"><span class="number">7</span>: <span class="string">"seal"</span></div><div class="line"><span class="number">8</span>: <span class="string">"create"</span></div><div class="line"><span class="number">9</span>: <span class="string">"defineProperties"</span></div><div class="line"><span class="number">10</span>:<span class="string">"defineProperty"</span></div><div class="line"><span class="number">11</span>:<span class="string">"freeze"</span></div><div class="line"><span class="number">12</span>:<span class="string">"getPrototypeOf"</span></div><div class="line"><span class="number">13</span>:<span class="string">"setPrototypeOf"</span></div><div class="line"><span class="number">14</span>:<span class="string">"isExtensible"</span></div><div class="line"><span class="number">15</span>:<span class="string">"isFrozen"</span></div><div class="line"><span class="number">16</span>:<span class="string">"isSealed"</span></div><div class="line"><span class="number">17</span>:<span class="string">"keys"</span></div><div class="line"><span class="number">18</span>:<span class="string">"entries"</span></div><div class="line"><span class="number">19</span>:<span class="string">"values"</span></div></pre></td></tr></table></figure>
+<p>接下来，将分组介绍各个方法。</p>
+<h3 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h3><p>创建对象的方法：</p>
+<ul>
+<li>对象字面量</li>
+<li>对象构造器 <code>new Object()</code></li>
+<li>Object.create()</li>
+<li>Object.assign()</li>
+</ul>
+<p>在这之前，我们先看看使用对象字面量(literal)和 <code>new Object()</code> 的构造器语法创建对象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 对象字面量</span></div><div class="line">&#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'Li Lei'</span>,</div><div class="line">  <span class="attr">children</span>: &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'Li MeiMei'</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>()           <span class="comment">// &#123;&#125;</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="literal">null</span>)       <span class="comment">// &#123;&#125;</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="literal">undefined</span>)  <span class="comment">// &#123;&#125;</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="literal">true</span>)       <span class="comment">// Boolean &#123;[[PrimitiveValue]]: true&#125;</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="number">123</span>)        <span class="comment">// Number &#123;[[PrimitiveValue]]: 123&#125;</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="string">'a'</span>)        <span class="comment">// String &#123;0: "a", length: 1, [[PrimitiveValue]]: "a"&#125;</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="built_in">Symbol</span>(<span class="string">'any'</span>)) <span class="comment">// Symbol &#123;[[PrimitiveValue]]: Symbol(any)&#125;</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(&#123;<span class="attr">name</span>: <span class="string">'Han MeiMei'</span>&#125;)  <span class="comment">// &#123;name: "Han MeiMei"&#125;</span></div></pre></td></tr></table></figure>
+<p><code>Object()</code> 只接收一个参数 <code>value</code>。</p>
+<ol>
+<li>返回空对象<ul>
+<li>参数为空（等价于 undefined）</li>
+<li>null</li>
+<li>undefind</li>
+</ul>
+</li>
+<li>返回包装对象<ul>
+<li>boolean 原始类型</li>
+<li>number 原始类型</li>
+<li>string 原始类型</li>
+<li>symbol 原始类型</li>
+</ul>
+</li>
+<li>返回源对象<ul>
+<li>object 引用类型</li>
+</ul>
+</li>
+</ol>
+<p><code>Object()</code> 接收除 <code>null</code> 和 <code>undefined</code> 外的原始类型参数时，会将其转换成对应的包装对象。这就类似于强制转换功能。</p>
+<p>实际上，<code>Object()</code> 还提供了不使用 <code>new</code> 操作符版本。你可以去掉 <code>new</code> 操作符，同样可以构建一个对象。</p>
+<p><code>Object.create()</code> 方法可以创建一个继承于另一个对象的对象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Object</span>.create(<span class="literal">null</span>);              <span class="comment">// &#123;&#125;</span></div><div class="line"><span class="built_in">Object</span>.create(&#123;<span class="attr">name</span>: <span class="string">'Lu Fei'</span>&#125;);  <span class="comment">// &#123;&#125;</span></div></pre></td></tr></table></figure>
+<p>上面两条语句的返回的对象看似一样，其实不然，其区别在于一个隐式属性 <code>__proto__</code> 的不同。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> obj1 = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</div><div class="line"><span class="keyword">const</span> obj2 = <span class="built_in">Object</span>.create(&#123;<span class="attr">name</span>: <span class="string">'Lu Fei'</span>&#125;);</div><div class="line"></div><div class="line">obj1.__proto__    <span class="comment">// undefined</span></div><div class="line">obj2.__proto__    <span class="comment">// &#123;name: 'Lu Fei'&#125;</span></div><div class="line"></div><div class="line"><span class="comment">// 可访问继承的 `name` 属性</span></div><div class="line">obj2.name         <span class="comment">// 'Lu Fei'</span></div></pre></td></tr></table></figure>
+<ul>
+<li><code>obj1</code> 不存在 <code>__proto__</code> 属性。</li>
+<li><code>obj2</code> 的 <code>__proto__</code> 属性指向了 <code>create</code> 方法的第一个参数。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 语法</span></div><div class="line"><span class="built_in">Object</span>.create(proto, properties);</div></pre></td></tr></table></figure>
+<p>参数 <code>proto</code> 只接受 <code>null</code> 和对象，其他都会抛出 <code>TypeError</code>。</p>
+<p>参数 <code>properties</code> 用来指定新对象的 own 属性。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Object</span>.create(&#123;<span class="attr">name</span>: <span class="string">'Mr.Lu'</span>&#125;, &#123;</div><div class="line">  <span class="attr">name</span>: &#123;</div><div class="line">    <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">value</span>: <span class="string">'Ms.Lu'</span>,</div><div class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="attr">age</span>: &#123;</div><div class="line">    <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">value</span>: <span class="number">21</span>,</div><div class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// &#123;name: "Ms.Lu", age: 21&#125;</span></div></pre></td></tr></table></figure>
+<p><code>Object.create</code> 的优点是可以定义<strong>属性描述符</strong>，缺点是定义普通属性太麻烦了。</p>
+<p>其实 <code>Object.create</code> 的最主要的特点是可以实现继承。</p>
+<p>但有时候，我们并不想用继承的方式创建对象，而是将对象间的属性合并在一起。</p>
+<p>ES6 增加的 <code>Object.assign</code> 方法就可以很简单做到这一点。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 语法</span></div><div class="line"><span class="built_in">Object</span>.assign(target, ...sources)</div></pre></td></tr></table></figure>
+<p><code>Object.assign</code> 方法可以把多个 <code>sources</code> 的<strong>可枚举属性</strong>拷贝到 <code>target</code> 对象上。</p>
+<blockquote>
+<p>可枚举属性：<code>enumerable = true</code> 的属性</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> proto = &#123;<span class="attr">name</span>: <span class="string">'prototype'</span>&#125;;</div><div class="line"><span class="built_in">Object</span>.create(proto);   <span class="comment">// &#123;&#125;</span></div><div class="line"><span class="built_in">Object</span>.assign(&#123;&#125;, proto);</div><div class="line"><span class="comment">// &#123;name: "prototype"&#125;</span></div></pre></td></tr></table></figure>
+<p><code>Object.assign</code> 有几点注意项：</p>
+<ul>
+<li>会修改 <code>target</code> 对象</li>
+<li><code>sources</code> 的同名属性会发生覆盖</li>
+<li>返回 <code>target</code> 对象</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> assign = <span class="built_in">Object</span>.assign(obj, &#123;<span class="attr">b</span>: <span class="number">2</span>&#125;, &#123;<span class="attr">b</span>: <span class="number">3</span>, <span class="attr">c</span>: <span class="number">4</span>&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 修改 target 对象</span></div><div class="line">obj   <span class="comment">// &#123;a: 1, b: 3, c: 4&#125;</span></div><div class="line"></div><div class="line"><span class="comment">// 覆盖同名属性</span></div><div class="line">obj.b <span class="comment">// 3</span></div><div class="line"></div><div class="line"><span class="comment">// 返回 target 对象</span></div><div class="line">assign === obj  <span class="comment">// true</span></div></pre></td></tr></table></figure>
+<ul>
+<li>浅拷贝，只拷贝对象的引用</li>
+<li>赋值只读属性时会抛出 <code>TypeError</code>，并中止之后的赋值。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;&#125;;</div><div class="line"><span class="comment">// 定义只读属性 a</span></div><div class="line"><span class="built_in">Reflect</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</div><div class="line">  <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">false</span>,</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="keyword">const</span> ref = &#123;<span class="attr">b</span>: &#123;<span class="attr">name</span>: <span class="string">'引用'</span>&#125;&#125;</div><div class="line"><span class="comment">// 覆盖只读属性出错</span></div><div class="line"><span class="built_in">Object</span>.assign(obj, ref, &#123;<span class="attr">a</span>: <span class="number">2</span>&#125;, &#123;<span class="attr">c</span>: <span class="number">3</span>&#125;) <span class="comment">// TypeError</span></div><div class="line"></div><div class="line"><span class="comment">// 中止了发生异常之后的赋值操作</span></div><div class="line">obj   <span class="comment">// &#123;b: &#123;name: '引用'&#125;, a: 1&#125;</span></div><div class="line">obj.c <span class="comment">// undefined</span></div><div class="line"></div><div class="line"><span class="comment">// 只拷贝了对象的引用</span></div><div class="line">obj.b.name = <span class="string">'reference'</span>;</div><div class="line">ref.b.name    <span class="comment">// "reference"</span></div></pre></td></tr></table></figure>
+<ul>
+<li>只拷贝 own 属性，且必须是可枚举属性。</li>
+<li>不拷贝属性描述符。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> A = &#123;<span class="attr">name</span>: <span class="string">'a'</span>&#125;;</div><div class="line"><span class="keyword">const</span> B = <span class="built_in">Object</span>.create(A, &#123;</div><div class="line">  <span class="attr">age</span>: &#123;</div><div class="line">    <span class="attr">configurable</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">value</span>: <span class="number">21</span>,</div><div class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">phone</span>: &#123;</div><div class="line">    <span class="attr">value</span>: <span class="string">'12345678901'</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">address</span>: &#123;</div><div class="line">    <span class="attr">configurable</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">    get() &#123; <span class="keyword">return</span> <span class="string">'China'</span>; &#125;,</div><div class="line">    set() &#123; <span class="built_in">console</span>.log(<span class="string">'Can\'t change'</span>); &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// &#123;age: 21, phone: "12345678901"&#125;</span></div><div class="line">B.address <span class="comment">// "China"</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> C = <span class="built_in">Object</span>.assign(&#123;&#125;, B);</div><div class="line"><span class="comment">// &#123;age: 21, address: "China"&#125;</span></div><div class="line"></div><div class="line"><span class="comment">// 不拷贝继承属性</span></div><div class="line">B.name    <span class="comment">// 'a'</span></div><div class="line">C.name    <span class="comment">// undefined</span></div><div class="line"></div><div class="line"><span class="comment">// 不拷贝不能枚举的 own 属性</span></div><div class="line">B.phone   <span class="comment">// "12345678901"</span></div><div class="line">C.phone   <span class="comment">// undefined</span></div><div class="line"></div><div class="line"><span class="comment">// 不拷贝访问器，只拷贝 get 返回值</span></div><div class="line"><span class="comment">// 实际上不会拷贝属性描述符</span></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(B, <span class="string">'address'</span>)</div><div class="line"><span class="comment">// &#123;enumerable: true, configurable: false, get: ƒ, set: ƒ&#125;</span></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(C, <span class="string">'address'</span>)</div><div class="line"><span class="comment">// &#123;value: "China", writable: true, enumerable: true, configurable: true&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h3><p>设置：</p>
+<ul>
+<li>Object.defineProperty</li>
+<li>Object.defineProperties</li>
+</ul>
+<p>获取：</p>
+<ul>
+<li>Object.getOwnPropertyDescriptor</li>
+<li>Object.getOwnPropertyDescriptors</li>
+<li>Object.getOwnPropertyNames</li>
+<li>Object.getOwnPropertySymbols</li>
+<li>Object.keys</li>
+<li>Object.values</li>
+<li>Object.entries</li>
+</ul>
+<blockquote>
+<p>ES6 将上面一些方法移动到了 <code>Reflect</code> 对象。</p>
+<ul>
+<li>Reflect.defineProperty</li>
+<li>Reflect.getOwnPropertyDescriptor</li>
+<li>Reflect.ownKeys</li>
+</ul>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;&#125;</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'name'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="string">'Li Li'</span>,</div><div class="line">  <span class="attr">writeable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">obj.name  <span class="comment">// "Li Li"</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.defineProperties(obj, &#123;</div><div class="line">  <span class="attr">name</span>: &#123;</div><div class="line">    <span class="attr">value</span>: <span class="string">'Li Lei'</span>,</div><div class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">age</span>: &#123;</div><div class="line">    <span class="attr">value</span>: <span class="number">21</span>,</div><div class="line">  &#125;,</div><div class="line">  [<span class="built_in">Symbol</span>.for(<span class="string">'id'</span>)]: &#123;</div><div class="line">    <span class="attr">value</span>: <span class="string">'01'</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;);</div><div class="line"></div><div class="line">obj.name  <span class="comment">// "Li Lei"</span></div><div class="line">obj.age   <span class="comment">// 21</span></div><div class="line">obj[<span class="built_in">Symbol</span>.for(<span class="string">'id'</span>)]  <span class="comment">// "01"</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">'name'</span>)</div><div class="line"><span class="comment">// &#123;value: "Li Lei", writable: true, enumerable: true, configurable: true&#125;</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptors(obj)</div><div class="line"><span class="comment">/*</span></div><div class="line">&#123;</div><div class="line">  age: &#123;value: 21, writable: false, enumerable: false, configurable: false&#125;,</div><div class="line">  name: &#123;value: "Li Lei", writable: true, enumerable: true, configurable: true&#125;,</div><div class="line">  Symbol(id): &#123;value: "01", writable: false, enumerable: false, configurable: false&#125;,</div><div class="line">&#125;</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyNames(obj)</div><div class="line"><span class="comment">// ["name", "age"]</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.getOwnPropertySymbols(obj)</div><div class="line"><span class="comment">// [Symbol(id)]</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.keys(obj)</div><div class="line"><span class="comment">// ["name"]</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.values(obj)</div><div class="line"><span class="comment">// ["Li Lei"]</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.entries(obj)</div><div class="line"><span class="comment">// [["name", "Li Lei"]]</span></div></pre></td></tr></table></figure>
+<h3 id="原型操作"><a href="#原型操作" class="headerlink" title="原型操作"></a>原型操作</h3><ul>
+<li>Object.getPrototypeOf</li>
+<li>Object.setPrototypeOf</li>
+</ul>
+<blockquote>
+<p>ES6 也将上面方法移动到了 <code>Reflect</code> 对象。</p>
+<ul>
+<li>Reflect.getPrototypeOf</li>
+<li>Reflect.setPrototypeOf</li>
+</ul>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> A = &#123;<span class="attr">name</span>: <span class="string">'a'</span>&#125;;</div><div class="line"><span class="keyword">let</span> B = &#123;<span class="attr">name</span>: <span class="string">'b'</span>&#125;;</div><div class="line"><span class="keyword">let</span> C = <span class="built_in">Object</span>.create(A);</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.getPrototypeOf(C)</div><div class="line"><span class="comment">// &#123;name: 'a'&#125;</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.setPrototypeOf(C, B)</div><div class="line"><span class="comment">// &#123;&#125;</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.getPrototypeOf(C)</div><div class="line"><span class="comment">// &#123;name: 'b'&#125;</span></div></pre></td></tr></table></figure>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ul>
+<li>Object.freeze</li>
+<li>Object.isFrozen</li>
+<li>Object.seal</li>
+<li>Object.isSealed</li>
+<li>Object.preventExtensions</li>
+<li>Object.isExtensible</li>
+<li>Object.is</li>
+</ul>
+<blockquote>
+<p>ES6 将上面一些方法移动到了 <code>Reflect</code> 对象。</p>
+<ul>
+<li>Reflect.preventExtensions</li>
+<li>Reflect.isExtensible</li>
+</ul>
+</blockquote>
+<p><code>Object.freeze</code> 方法会冻结对象，无法操作对象的属性（除了读取操作）。<br>但是如果对象的属性值是一个未冻结对象的引用，那么可以执行未冻结的属性操作，即 <code>freeze</code> 是浅冻结。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;;</div><div class="line"></div><div class="line">obj.a = <span class="string">'a'</span>;</div><div class="line">obj.c = <span class="number">3</span>;</div><div class="line"><span class="keyword">delete</span> obj.c  <span class="comment">// true</span></div><div class="line"><span class="built_in">Object</span>.isFrozen(obj)  <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.freeze(obj)    <span class="comment">// &#123;a: "a", b: 2&#125;</span></div><div class="line"><span class="meta"></span></div><div class="line">'use strict'; obj.a = <span class="number">1</span>;</div><div class="line"><span class="comment">// TypeError: Cannot assign to read only property 'a' of object</span></div><div class="line"><span class="meta"></span></div><div class="line">'use strict'; obj.c = <span class="number">3</span>;</div><div class="line"><span class="comment">// TypeError: Cannot add property c, object is not extensible</span></div><div class="line"><span class="meta"></span></div><div class="line">'use strict'; <span class="keyword">delete</span> obj.a;</div><div class="line"><span class="comment">// TypeError: Cannot delete property 'a'</span></div><div class="line"><span class="meta"></span></div><div class="line">'use strict'; <span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</div><div class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">  <span class="attr">value</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">writable</span>: <span class="literal">true</span>,</div><div class="line">&#125;);</div><div class="line"><span class="comment">// TypeError: Cannot redefine property: a</span></div></pre></td></tr></table></figure>
+<p><code>Object.seal</code> 方法会密封对象，密封对象不可扩展（添加新属性和修改 <code>__proto__</code>），设置对象所有属性的 <code>configurable = false</code>。</p>
+<p><code>Object.preventExtensions</code> 方法会阻止对象扩展，即对象不可扩展（添加新属性），也不可修改 <code>__proto__</code>，即不可修改原型。</p>
+<p><code>Object.is</code> 是对 <code>===</code> 的部分改进。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line">+<span class="number">0</span> === <span class="number">-0</span>   <span class="comment">// true</span></div><div class="line"><span class="literal">NaN</span> === <span class="literal">NaN</span> <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>.is(+<span class="number">0</span>, <span class="number">-0</span>)   <span class="comment">// false</span></div><div class="line"><span class="built_in">Object</span>.is(<span class="literal">NaN</span>, <span class="literal">NaN</span>) <span class="comment">// true</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+  <!--
+    <footer class="article-footer">
+      <a data-url="https://sysiya.github.io/post/javascript-object/" data-id="cj71lhvdz000ic9si31pzt3ty" class="article-share-link">分享</a>
+      
+        <a href="https://sysiya.github.io/post/javascript-object/#disqus_thread" class="article-comment-link">留言</a>
+      
+    </footer>
+  -->
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/post/javascript-array/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">JavaScript·数组</div>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+  
+</article>
+</section>
+        
+      </div>
+      
+        <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Sysiya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+<script>
+  var disqus_shortname = 'sysiya';
+  
+  var disqus_url = 'https://sysiya.github.io/post/javascript-object/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
