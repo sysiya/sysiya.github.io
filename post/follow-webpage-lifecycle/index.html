@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>追溯 · 网页 · 生命周期 | 世界の角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一直都好奇网页的构建原理，今天我想试着揭开网页的面纱，得以窥见其中的美妙。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="追溯 · 网页 · 生命周期">
+<meta property="og:url" content="https://sysiya.github.io/post/follow-webpage-lifecycle/index.html">
+<meta property="og:site_name" content="世界の角落">
+<meta property="og:description" content="一直都好奇网页的构建原理，今天我想试着揭开网页的面纱，得以窥见其中的美妙。">
+<meta property="og:image" content="https://sysiya.github.io/resources/8F9D8AC15D00D06C981422BDC9463F35.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/95731CDAF25D93B12F70879A94249091.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/F7908DD673804E3C90DDED4238831D8A.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/F5375322519CF60D0000AF62CA7EE5CD.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/66F5127BB9FE40DBC4100515609D08B7.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/3F13FF9B99A559165BC77AA145529A0B.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/6DB624776986849D4FB2992553235935.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/336A7EC10477245F977856F5AADE6DE6.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/4D1B135D09E8A4CF286560ED58B065D8.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/0402617BEFE13BE458E675F38B540148.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/CB3A3D9AB34883FBAFAE4B42D014ADE3.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/CEF1EC5C92DE6F0FCBD9640B6C0A164A.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/5A4C0839F22AE33A4C4B921F0C1D4841.jpg">
+<meta property="og:image" content="https://sysiya.github.io/resources/FF0732B675750961A55914D2383DFA74.jpg">
+<meta property="og:updated_time" content="2017-09-22T06:15:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="追溯 · 网页 · 生命周期">
+<meta name="twitter:description" content="一直都好奇网页的构建原理，今天我想试着揭开网页的面纱，得以窥见其中的美妙。">
+<meta name="twitter:image" content="https://sysiya.github.io/resources/8F9D8AC15D00D06C981422BDC9463F35.jpg">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+        
+          <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sysiya.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+        
+      <div class="outer">
+        <section id="main"><article id="post-follow-webpage-lifecycle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+      
+      <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      追溯 · 网页 · 生命周期
+    </h1>
+  
+
+          <a href="/post/follow-webpage-lifecycle/" class="article-date">
+  <time datetime="2017-09-22T05:51:58.000Z" itemprop="datePublished">2017-09-22</time>
+</a>
+          
+      </header>
+      
+  </div>
+    <div class="article-inner">
+      
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一直都好奇网页的构建原理，今天我想试着揭开网页的面纱，得以窥见其中的美妙。</p>
+<a id="more"></a>
+<h2 id="纵览网页的生命周期"><a href="#纵览网页的生命周期" class="headerlink" title="纵览网页的生命周期"></a>纵览网页的生命周期</h2><p>首先，我会根据一个常见的场景来尝试描绘网页的奇妙之旅。</p>
+<p>当我们在浏览器的地址栏输入网址时，浏览器就会尝试获取网页。</p>
+<p>浏览器具体获取网页的过程，和我们输入的网址有紧密的关系。实际上，我们输入的网址，可以用一个专业名称来形容 - <strong>URL</strong>。URL 是 Uniform Resource Locator 的简写，意思是<strong>统一资源定位器</strong>。</p>
+<p>分别解释下这三个单词的含义：</p>
+<ul>
+<li>Uniform（统一）：全球有一个统一的网络 - Internet（互联网）。</li>
+<li>Resource（资源）：通过网络传输的各种资源，网页、图片、视频、文件等。</li>
+<li>Locator（定位器）：在网络上传输的资源都需要通过定位器来辨别彼此。</li>
+</ul>
+<p>URL 为网络上传输的每一个资源提供一个唯一的标识符，也就是一个唯一的标签。</p>
+<p><img src="/resources/8F9D8AC15D00D06C981422BDC9463F35.jpg" alt="图 1：用户请求网页"></p>
+<p>浏览器会将 URL 交给操作系统，操作系统会试图解析 URL，将解析结果发送给计算机上的网卡，网卡会传递消息给与其连接的路由器或其他网络设备。这些网络设备又会将消息传递给与其相邻的网络设备，直到传递给应该持有该资源的计算机，该计算机的操作系统会检测是否可以提供资源，若可以，通知相关程序准备好资源，然后再将资源发送给请求资源的计算机，当然，还得再次通过各种网络设备；若无法提供资源，也会发送一条消息给等待该资源的计算机，通知资源不存在。</p>
+<p>当浏览器获取到网页后，就会开始解析网页内容，根据网页内容，可能继续请求资源，根据解析结果，生成最终的图像，发送给显卡。最终显卡会将图像绘制到显示屏上，我们就可以看见网页内容了。</p>
+<p>最后再总结一下，实际以上过程可简单分成两部分：</p>
+<ul>
+<li>获取另一台计算机提供的网页到本地计算机上</li>
+<li>将本地计算机上的网页渲染到计算机显示屏上</li>
+</ul>
+<h2 id="网络资源的传输"><a href="#网络资源的传输" class="headerlink" title="网络资源的传输"></a>网络资源的传输</h2><p>我们常见的网页实际上可能包含了多个资源，这些资源一般存放在另一台计算机上，或者由另一台计算机动态生成。</p>
+<p>由此，我们可以将资源划分为<strong>静态资源</strong>与<strong>动态资源</strong>。</p>
+<p>也正是因为资源常常存在另一台计算机上，我们才需要使用<strong>网络</strong>从一台计算机上传输资源到另一台计算机上。网络就是为资源传输而设计的，它可以横跨地理位置的限制，连接世界各地的计算机，让通信变得愈加便利。为了让两台计算机之间能够传递数据，我们往往需要部署大量的网络设备，作为数据的中继站。这些网络设备种类繁多，用途不一，为了简化数据传输的复杂性，通过分层抽象的方法统一数据传输的方式。</p>
+<p>现在实际使用比较广泛的是五层网络架构，自上而下分别是<strong>应用层</strong>、<strong>运输层</strong>、<strong>网络层</strong>、<strong>数据链路层</strong>和<strong>物理层</strong>。</p>
+<ul>
+<li>应用层：实现应用程序之间的数据交换</li>
+<li>运输层：保证数据传输的可靠性、实时性、完整性</li>
+<li>网络层：实现网络节点的位置识别与查找</li>
+<li>数据链路层：实现字节数据流的传输</li>
+<li>物理层：描述网络设备之间的接口</li>
+</ul>
+<p>在应用层，客户端与服务器使用 <strong>HTTP</strong> 协议交换数据，这里的客户端一般是浏览器，但不局限于浏览器。HTTP 协议依赖运输层的 TCP 协议实现数据的可靠运输，而 TCP 协议又依靠网络层的 IP 协议来查找其他计算机。</p>
+<p>上面这三层协议都工作在操作系统上，而剩下的两层则一般位于网络适配器（网卡）中。</p>
+<h3 id="部署一个简单的-HTTP-服务器"><a href="#部署一个简单的-HTTP-服务器" class="headerlink" title="部署一个简单的 HTTP 服务器"></a>部署一个简单的 HTTP 服务器</h3><p>接下来，我将编写一个简单的网页，并在本地计算机上启动一个 HTTP 服务器，托管该页面，然后从浏览器访问该网页。</p>
+<p>首先，编写一个静态 HTML 文件，该文件描述网页的结构和内容，同时，还有一个 CSS 样式文件和一个 JavaScript 脚本文件。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"master.css"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">    function hello() &#123;</div><div class="line">      console.log('Hello, World');</div><div class="line">    &#125;</div><div class="line">    window.addEventListener('load', () =&gt; &#123;</div><div class="line">      console.log('window.addEventListener');</div><div class="line">    &#125;)</div><div class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"index.js"</span> <span class="attr">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">"font-size: 4em"</span>&gt;</span>Hello, World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">    window.onload = () =&gt; &#123;</div><div class="line">      console.log('window.onload');</div><div class="line">    &#125;</div><div class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></div><div class="line">    h1 &#123;</div><div class="line">      text-decoration:underline;</div><div class="line">    &#125;</div><div class="line">  <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>CSS 文件简单地添加了一些样式信息。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><div class="line"><span class="selector-tag">h1</span> &#123;</div><div class="line">  <span class="attribute">color</span>: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>JavaScript 文件中的脚本程序会获取网页中的内容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="string">'defer script'</span>);</div><div class="line">hello();</div><div class="line"><span class="keyword">const</span> h1 = <span class="built_in">document</span>.querySelector(<span class="string">'h1'</span>);</div><div class="line"><span class="built_in">console</span>.log(h1.innerText);</div></pre></td></tr></table></figure>
+<p>以上就是一个简单网页需要的所有资源，总共 3 个静态资源，包括 HTML 文件、CSS 文件和 JavaScript 文件。</p>
+<p>接下来，我将使用 Google Chrome 浏览器的一个扩展程序 Web Server for Chrome 来配置 HTTP 服务器，托管以上静态资源。</p>
+<p><img src="/resources/95731CDAF25D93B12F70879A94249091.jpg" alt="图 2：配置 Web Server"></p>
+<p>接下来，在 Google Chrome 浏览器的隐身模式下输入以下网址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">http://127.0.0.1:8000/index.html</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用隐身模式，可以避免不必要的干扰，如扩展程序和缓存等。</p>
+</blockquote>
+<p><img src="/resources/F7908DD673804E3C90DDED4238831D8A.jpg" alt="图 3：屏幕显示的页面"></p>
+<p>既然我们已经成功访问了该静态页面，那么是时候来深入了解下浏览器是如何获取到静态资源。</p>
+<h3 id="捕获传输数据"><a href="#捕获传输数据" class="headerlink" title="捕获传输数据"></a>捕获传输数据</h3><p>Wireshark 是一个网络数据分析器，它可以追踪网络数据的传输，所以我将利用 Wireshark 来了解网络数据的传输细节。</p>
+<blockquote>
+<p>访问本地的网络资源是一种特殊场景，一般用于开发者的本地测试。而 Wireshark 实际上是为监听网卡的网络数据而设计的，但本地访问本地的网络资源并不会通过网卡来获取资源。所以需要换种思路来监听本地的网络资源，在 Linux 和 Mac OS X 系统中允许 Wireshark 直接通过一个虚拟的网卡来访问本地资源，而 Windows 系统需要进行额外配置，这里就不展开讨论。</p>
+</blockquote>
+<p>使用 Wireshark 分析 HTTP 与 TCP 协议交互的数据，因为 HTTP 协议依赖于 TCP 协议传输数据报文，所以，接下来只关注 TCP 协议的数据传输过程。</p>
+<p>从打开网页到关闭网页，共需经过以下流程：</p>
+<ul>
+<li>建立 TCP 连接</li>
+<li>传递数据</li>
+<li>关闭 TCP 连接</li>
+</ul>
+<p>要建立 TCP 连接，需要经过三次握手。</p>
+<p><img src="/resources/F5375322519CF60D0000AF62CA7EE5CD.jpg" alt="图 4：建立 TCP 连接"></p>
+<p>以下是一些关键点：</p>
+<ul>
+<li>TCP 连接由客户端发起</li>
+<li>SYN 标志着正在创建 TCP 连接</li>
+<li>ACK 标志着已收到对方之前发送的 Message（报文）</li>
+<li>Seq 为 TCP 报文的序列号</li>
+<li>Ack 为 TCP 报文的确认号</li>
+<li>成功建立 TCP 连接后，客户端和服务器的 Seq 和 Ack 都为 1</li>
+</ul>
+<p>成功建立 TCP 连接后，客户端和服务器就可以双向传递数据了。首先，客户端（浏览器）会发送以下 HTTP Request（请求）报文来获取 <code>index.html</code>。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">GET /index.html HTTP/1.1</div><div class="line">Host: 127.0.0.1:8000</div><div class="line">Connection: keep-alive</div><div class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36</div><div class="line">Upgrade-Insecure-Requests: 1</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</div><div class="line">DNT: 1</div><div class="line">Accept-Encoding: gzip, deflate, br</div><div class="line">Accept-Language: zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4</div></pre></td></tr></table></figure>
+<blockquote>
+<p>HTTP 请求报文为 URL 编码方式编码文本，非二进制编码，换行使用 <code>\r\n</code>。</p>
+</blockquote>
+<p>上面的 HTTP 报文共计有 428 个字符，包括空格和 <code>\r\n</code>。<br>在 URL 编码中，一个字符占一个字节，所有以上 HTTP 报文共占 428 个字节。</p>
+<p><img src="/resources/66F5127BB9FE40DBC4100515609D08B7.jpg" alt="图 5：传输 /index.html 文件"></p>
+<p>服务器接收到客户端发送的 HTTP 请求后，会将 HTTP Response（响应）分成 Response Header 和 Response Body 分两次发送给客户端。</p>
+<p>其中，响应标头内容有 216 个字符：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">content-length: 814</div><div class="line">accept-ranges: bytes</div><div class="line">connection: keep-alive</div><div class="line">content-type: text/html; charset=utf-8</div></pre></td></tr></table></figure>
+<p>响应体内容就是之间编写的 <code>index.html</code> 文件的内容，共计 814 字节，响应体长度同时记录在响应标头的 <code>content-length</code> 字段中。</p>
+<p>浏览器获取 <code>index.html</code> 文件之后，就会解析 HTML 文件内容，再遇到以下标签时，又会发起一个新的 HTTP 请求。因为 TCP 连接还未关闭，此时会重用之前建立的 TCP 连接，省去了建立新的 TCP 连接的开销。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"master.css"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后继续解析到以下标签，再次发起一个新的 HTTP 请求，此时 之前建立的 TCP 连接仍在获取 <code>master.css</code>，所以需要建立一个新的 TCP 连接来获取 <code>index.js</code>。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"index.js"</span> <span class="attr">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>之后获取 <code>master.css</code> 和 <code>index.js</code> 的过程与 <code>index.html</code> 相似，就不再详细分析。</p>
+<p>总结一下数据传输过程的关键点：</p>
+<ul>
+<li>PSH 标志当前报文携带数据</li>
+<li>Seq = 之前发送的所有报文的数据总长度 + 1</li>
+<li>Ack = 之前接收的所有报文的数据总长度 + 1</li>
+</ul>
+<h3 id="Keep-Alive"><a href="#Keep-Alive" class="headerlink" title="Keep-Alive"></a>Keep-Alive</h3><p>还有一点值得注意的是，之前发送的 HTTP 报文有一个特殊字段 <code>connection</code>。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">connection: keep-alive</div></pre></td></tr></table></figure>
+<p>该字段指示建立一个持久 HTTP 连接，这样可以重用 TCP 连接发起多个 HTTP 请求，如 <code>index.html</code> 和 <code>master.css</code> 就共用了同一个 TCP 连接。</p>
+<p>为了维持一个持久 HTTP 连接，当 HTTP 请求完成后也不会关闭 TCP 连接，那么当一方出现故障，永远不会主动关闭 TCP 连接时，还一直维持 TCP 连接就不划算了，所以每隔一段时间，双方就得向对方发送一个 TCP 报文，检测对方的 TCP 连接是否还有效。</p>
+<p><img src="/resources/3F13FF9B99A559165BC77AA145529A0B.jpg" alt="图 6：TCP Keep-Alive"></p>
+<p>为了与一般的 TCP 报文区分开来，Keep-Aclive 报文的 Seq 会减去 1，若没有收到对方的确认报文，就会关闭该 TCP 连接。</p>
+<p>总结一下要点：</p>
+<ul>
+<li>客户端和服务器每隔一段时间就会向对方发送 Keep-Alive 报文，探测对方是否还在线</li>
+<li>发送的 Keep-Alive 报文中的 Seq 要减去 1</li>
+<li>Keep-Alive 报文的 Seq 不用减 1</li>
+</ul>
+<h3 id="关闭-TCP-连接"><a href="#关闭-TCP-连接" class="headerlink" title="关闭 TCP 连接"></a>关闭 TCP 连接</h3><p>当主动关闭网页时，将会关闭当前页面内建立的 TCP 连接，一个页面最多建立 6 个 TCP 连接。</p>
+<p><img src="/resources/6DB624776986849D4FB2992553235935.jpg" alt="图 7：关闭 TCP 连接"></p>
+<p>关闭 TCP 连接过程的要点：</p>
+<ul>
+<li>客户端发起关闭 TCP 关闭请求</li>
+<li>服务器确认客户端的关闭请求后，还得发送一次 TCP 关闭请求，并等待客户端确认</li>
+<li>FIN 标志想要关闭 TCP 连接</li>
+<li>与 SYN 标志一致，FIN 标志也会导致 Seq 和 Ack 加 1</li>
+</ul>
+<h2 id="网页内容的渲染"><a href="#网页内容的渲染" class="headerlink" title="网页内容的渲染"></a>网页内容的渲染</h2><p>上一节，已经介绍过了网页内容如何通过网络传输，现在我们可以来了解下浏览器如何处理网页内容，渲染到显示屏上。</p>
+<p>从 HTML 、CSS 和 JavaScript 内容到最后的渲染到屏幕上的像素的过程，称为<strong>关键渲染路径</strong>。</p>
+<blockquote>
+<p>关键渲染路径，英文名为 <strong>Critical Render Path</strong>。</p>
+</blockquote>
+<p>关键渲染路径包括以下步骤：</p>
+<ul>
+<li>解析 HTML 文档内容，构建 DOM</li>
+<li>解析 HTML 内的样式表内容和 CSS 文档内容，构建 CSSOM</li>
+<li>组合 DOM 和 CSSOM 构建 Render Tree（渲染树）</li>
+<li>根据渲染树进行布局，计算可见节点的几何信息</li>
+<li>将可视节点绘制到屏幕上</li>
+</ul>
+<blockquote>
+<p>DOM(Document Object Model)，中文翻译是<strong>文档对象模型</strong>。<br>CSSOM(Cascading Style Sheets Object Model)，中文翻译是<strong>层叠样式表对象模型</strong>。</p>
+</blockquote>
+<h3 id="构建-DOM"><a href="#构建-DOM" class="headerlink" title="构建 DOM"></a>构建 DOM</h3><p>浏览器构建 DOM 的过程：</p>
+<ol>
+<li><strong>解码字节</strong>：浏览器通过 TCP 协议获取到 <code>index.html</code> 的字节表示形式，然后根据文件的指定编码（例如 UTF-8）将字节序列解码成字符序列。</li>
+<li><strong>生成令牌</strong>：浏览器按 <a href="https://www.w3.org/TR/html5/" target="_blank" rel="external">W3C HTML5 标准</a> 将字符序列转换成各种 Token（令牌），例如 <code>&lt;html&gt;</code> 、<code>&lt;body&gt;</code> 和 <code>&lt;p&gt;</code> 等。每个 Token 都有其特殊的含义和一组规则。</li>
+<li><strong>词法分析</strong>：将 Token 转换为有特定属性和规则的<strong>对象</strong>，也就是 DOM 中的 Node（节点）。</li>
+<li><strong>构建 DOM</strong>：根据 HTML 标记的位置关系将上一步生成的<strong>对象</strong>作为 <strong>DOM 树</strong>（数据结构）的节点。</li>
+</ol>
+<p>我就简单拿 <code>Hello, World!</code> 这几个字符的解码来展示如何从字节序列转换成字符序列。</p>
+<p><img src="/resources/336A7EC10477245F977856F5AADE6DE6.jpg" alt="图 8：字节码转换成字符串"></p>
+<p>第一栏为 16 进制表示的字节码，第二栏为使用 UTF-8 编码解码后的字符串。</p>
+<p>之后，浏览器就可以通过匹配特定模式的字符串来生成令牌。比如，<code>&lt;html lang=&quot;en&quot;&gt;</code> 生成一个令牌：html 开始标签，拥有属性 <code>lang</code>，<code>&lt;/html&gt;</code> 则生成另一个令牌：html 结束标签。</p>
+<p>生成的令牌会被转换成一个特定的对象，该对象具有特定的属性，并且会根据令牌流中令牌出现的位置，将该对象插入到 DOM 树中。</p>
+<p>下面盗一张图来展示以上过程。</p>
+<p><img src="/resources/4D1B135D09E8A4CF286560ED58B065D8.jpg" alt="图源：Google Developer Web Fundamentals"></p>
+<p>最终浏览器会构建一颗完整的 DOM 树，描述文档结构。</p>
+<h3 id="构建-CSSOM"><a href="#构建-CSSOM" class="headerlink" title="构建 CSSOM"></a>构建 CSSOM</h3><p>构建 CSSOM 树的过程与构建 DOM 树的过程是一致的，只是解析的词法与最终表示的数据结构有所不同，最终构建的 CSSOM 树与下图类似。</p>
+<p><img src="/resources/0402617BEFE13BE458E675F38B540148.jpg" alt="图源：Google Developer Web Fundamentals"></p>
+<h3 id="构建渲染树"><a href="#构建渲染树" class="headerlink" title="构建渲染树"></a>构建渲染树</h3><p>构建完成 DOM 和 CSSOM 后，还需要组合两者得到渲染树，渲染树只包含可见节点，即最终会显示在屏幕上的元素。</p>
+<p><img src="/resources/CB3A3D9AB34883FBAFAE4B42D014ADE3.jpg" alt="图源：Google Developer Web Fundamentals"></p>
+<blockquote>
+<p>注意：CSS 样式规则 <code>visibility: hidden</code> 是隐藏元素，但元素仍存在渲染树中，占据屏幕空间；而 <code>display: none</code> 则是设置元素不可见，即该元素不会出现在渲染树中，不会占据屏幕空间。</p>
+</blockquote>
+<p>当渲染树构建完成后，浏览器就可以根据渲染树计算可见节点应该出现在屏幕上的位置和尺寸，绘制到屏幕上。</p>
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3><p>浏览器计算可见节点的位置与尺寸的过程，也被称为 <strong>Layout</strong>（布局），也称<strong>Autoflow</strong>（自动排列）。</p>
+<p>元素的几何属性会影响布局：</p>
+<ul>
+<li>width（宽度）</li>
+<li>height（高度）</li>
+<li>margin (外边距）</li>
+<li>padding（内边距）</li>
+<li>border（边框）</li>
+<li>其他几何属性</li>
+</ul>
+<p>浏览器会参照显示设备的 <strong>viewport</strong>（视口）来计算元素在 viewport 中的显示位置。</p>
+<blockquote>
+<p>布局和 CSS 的<strong>盒子模型</strong>有着紧密的关系。</p>
+</blockquote>
+<h3 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h3><p>既然我们已经知道了可见元素的样式和几何信息，那么就可以将该元素转换成屏幕上的实际像素，这一过程称为 <strong>Paint</strong>（绘制），也称为 <strong>Caster</strong>（栅格化）。</p>
+<p>像素（Pixel）是显示设备的最小单位，每一个像素都包含自己的颜色和亮度，即我们常见的 <strong>RGBA</strong>。</p>
+<blockquote>
+<p>RGB 分别代表红色（Red）、绿色（Green）和蓝色（Blue），A 则代表了透明度（Alpha），即亮度。</p>
+</blockquote>
+<p>其实，像素是一个很容易混淆的概念，尤其在不同语境下，这是因为我们没有理清显示器原生像素、屏幕像素和 CSS 像素的关系。</p>
+<p>就拿我目前使用的 2016 年推出的 MBP 13寸来说，内置 Retina 显示器的原生分辨率为 2560 x 1600，即共拥有 4096000 个物理像素。</p>
+<p>但 macOS 系统中默认的屏幕分辨率为 1440 x 900，即 1296000 个屏幕像素，一个屏幕像素实际占据了 3.1604938272 个物理像素。这个数字看上去很怪异，如果我们将屏幕分辨率设置为 1280 x 800，即 1024000 个屏幕像素，那么一个屏幕像素实际占据了 4 个物理像素。</p>
+<p>看上去，后面这种分辨率更合理一些，至于为什么默认使用 1440 x 900 的屏幕分辨率，我们之后再讨论，现在，我们想思考一下，为什么要将屏幕分辨率设置得比显示器的原生分辨率要小得多。</p>
+<p>这是因为在 13 寸的显示器上，使用原生的 2560 x 1600 的分辨率将会导致屏幕上的所有显示项目缩小许多，这不利于日常使用，毕竟人眼长时间紧盯微小的事物还是很容易造成视觉疲劳的。所以，将屏幕分辨率缩小，就可以让屏幕上的项目显示为正常尺寸，并且更加细腻清晰。</p>
+<p>为什么会更加细腻清晰？因为与同样 13 寸但原生分辨率与屏幕分辨率都为 1280 x 800 的显示器相比，原生分辨率为 2560 x 1600 且屏幕分辨率为 1280 x 800 的显示器显示同样尺寸的项目的空间里拥有 4 倍的像素个数，简单点说，就是像素更小，或者说，像素密度更大。</p>
+<p><img src="/resources/CEF1EC5C92DE6F0FCBD9640B6C0A164A.jpg" alt="图 9：像素密度比较"></p>
+<blockquote>
+<p>像素密度指的是单位面积内的像素个数，常用 DPI（Dots Per Inch） 或 PPI（Pixels Per Inch） 来表示。</p>
+</blockquote>
+<p>现在我们了解了为什么存在屏幕分辨率与显示器分辨率不一致的原因了，那么来聊一聊为什么 2016 版的 MBP 13 寸的默认屏幕分辨率不是 1280 x 800，而是 1440 x 900。其实这是因为 MacBook Air 13 寸的分辨率为 1440 x 900，所以相同尺寸的屏幕下项目会更小一点，显示空间会更大一些，而如果 MacBook Pro 13 寸的默认屏幕分辨率（实际分辨率为 2560 x 1600）为 1280 x 800，那么就显得 MacBook Pro 13 寸的现实空间小了一些。为了不让消费者比较这两款产品时产生 MacBook Pro 13 寸屏幕看起来比较小的错觉，所以 Apple 把 MacBook Pro 13 寸的默认屏幕分辨率设定为 1440 x 900。</p>
+<p>这是个有趣的小插曲，但不影响我们之后对 CSS 像素的讲解，因为 CSS 像素是浏览器用来绘制网页内容的一种抽象单位。</p>
+<p>当网页的缩放比率为 100% 时，CSS 像素与屏幕像素是一致，即浏览器内 viewport 的分辨率应该与屏幕分辨率一致。当网页进行缩放后，CSS 像素可能比屏幕像素大，也可能比屏幕像素小，这取决于缩放比率。</p>
+<p>实际上，你可能听说过<strong>设备像素</strong>，其实就是我之前谈到的<strong>屏幕像素</strong>，而不是显示器的物理像素。</p>
+<p>了解完不同像素的区别之后，我们就能明白浏览器是按可见元素的 CSS 像素绘制到屏幕上的，CSS 像素乘以缩放比例得到实际渲染到屏幕的像素，屏幕像素（设备像素）乘以显示器缩放比例得到真正的物理像素。</p>
+<p><img src="/resources/5A4C0839F22AE33A4C4B921F0C1D4841.jpg" alt="图 10：像素缩放：左边为屏幕像素 &amp; 右边为物理像素"></p>
+<h3 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h3><p>实际上，绘制的结果会保存到图层（Layer）上，如果存在多个图层，就要处理图层的重叠关系，最后将所有图层组合成一张位图，发送给 GPU（显卡），GPU 最终会将位图渲染到显示器的屏幕上。这种组合图层的过程，就称为 <strong>Composite</strong>（合成）。</p>
+<p>为什么需要图层呢？这是为了节省计算开销，比如，一个使用 <code>postion: fixed</code> 的元素的位置会一直固定在屏幕上，当用户滚动页面时，就要重新渲染图像到屏幕上。如果只有一个图层，那么每次重新渲染都必须计算当前页面所有元素的布局信息，这样计算量就比较大，而且效率低下；但是如果把该固定元素放在另一个图层上，每次重新渲染时只需要将两个图层合成成一张图像即可，这样计算量就大大减少了，效率也就能提高。</p>
+<h3 id="浏览器处理网页的完整过程"><a href="#浏览器处理网页的完整过程" class="headerlink" title="浏览器处理网页的完整过程"></a>浏览器处理网页的完整过程</h3><p>最后，我们通过 Google Chrome 的性能分析工具来展现浏览器处理网页的完整流程。</p>
+<p>打开 DevTools（开发者工具）中的 Performance（性能）标签，使用快捷键 <code>⌘ ⇧ E</code> 启动性能分析并重载页面，当页面加载完成后，结束性能记录。</p>
+<blockquote>
+<p>旧版本的 Google Chrome 中的性能分析在 Timeline（时间轴）标签。</p>
+</blockquote>
+<p><img src="/resources/FF0732B675750961A55914D2383DFA74.jpg" alt="图 11：浏览器页面处理时间轴"></p>
+<p>我们可以将整个时间轴分成三个阶段：<strong>准备工作</strong>、<strong>请求资源</strong>和<strong>资源处理</strong>。</p>
+<p>我们将跳过「准备工作」阶段，直接分析「请求资源」阶段。</p>
+<p>首先是请求资源 <code>index.html</code>：</p>
+<ol>
+<li>Send Request (index.html)</li>
+<li>Receive Response (index.html)</li>
+<li>Receive Data (index.html)</li>
+<li>Finish Loading (index.html)</li>
+</ol>
+<blockquote>
+<p>上面的流程简化了触发的事件，因为此时我们并不能利用这些事件做点什么，所以就没有必要指出来。</p>
+</blockquote>
+<p>然后解析 <code>index.html</code>：</p>
+<ol>
+<li>Parse HTML (index.html [1…15])<br>1.1 Send Request (master.css)<br>1.2 Send Request (index.js)</li>
+<li>Receive Response (master.css)</li>
+<li>Receive Data (master.css)</li>
+<li>Finish Loading (master.css)</li>
+<li>Parse Stylesheet</li>
+<li>Evaluate Script (index.html:9)<br>6.1 Compile Script (index.html:9)</li>
+<li>Parse HTML (index.html [16…32])<br>7.1 Evaluate Script (index.html:21)<br> 7.1.1 Compile Script (index.html:21)</li>
+</ol>
+<p>上面的解析 HTML 分成了两步完成，先解析 1-15 行，再解析 16-32 行，这是因为 <code>&lt;script&gt;...&lt;/script&gt;</code> 中的内联脚本（ 10-15 行）会阻断 HTML 的解析，优先执行脚本。</p>
+<p>然而内联脚本并没有立即执行，这是因为要执行内联脚本，必须等待 CSSOM 构建完成，就必须等待 <code>master.css</code> 先加载完。</p>
+<p>17 行我们定义的 <code>&lt;scirpt ... defer&gt;&lt;/script&gt;</code> 脚本并没有阻塞 HTML 文档解析，这是因为 <code>defer</code> 标注该 <code>&lt;script&gt;</code> 应该延迟加载与执行，不阻塞 HTML 文档解析和渲染。</p>
+<p>DOM 和 CSSOM 都解析完成后，就可以构建渲染树：</p>
+<ol>
+<li>Recalculate Style</li>
+<li>Layout</li>
+<li>Recalculate Style</li>
+<li>Update Layer Tree</li>
+<li>Paint</li>
+<li>Composite Layers</li>
+</ol>
+<p>渲染结束后，开始加载异步脚本 <code>index.js</code> 并执行。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>目前大多数 HTTP 服务器部署的 HTTP 协议版本是 HTTP/1.1，但 HTTP/2 因为支持更高效的双向数据流交互开始流行起来了，之后可能会专门写一篇博文介绍 HTTP/2。</p>
+<p>在 HTTP/1.1 协议中，</p>
+<ul>
+<li>默认一个网页只能同时打开 6 个 TCP 连接</li>
+<li>默认启用持久 HTTP 连接</li>
+<li>使用 TCP 协议作为底层传输协议</li>
+</ul>
+<p>浏览器解析 HTML 页面：</p>
+<ul>
+<li>解析内联样式和外部样式更新 CSSOM</li>
+<li>解析内联脚本和外部脚本并执行</li>
+<li>解析完 HTML 页面后构建 DOM</li>
+<li>组合 DOM 和 CSSOM 生成渲染树</li>
+</ul>
+<blockquote>
+<p>内联样式表和外部样式表不会阻塞 DOM 的构建，但会阻塞之后的 JavaScript 脚本的执行。<br>内联脚本和外部同步脚本会阻塞 DOM 的构建，但外部异步脚本不会阻塞 DOM 的构建。</p>
+</blockquote>
+<p>浏览器渲染页面：</p>
+<ul>
+<li>根据生成的渲染树，计算样式</li>
+<li>布局</li>
+<li>绘制</li>
+<li>更新图层树</li>
+<li>合成图层</li>
+<li>渲染到屏幕</li>
+</ul>
+
+      
+    </div>
+  <!--
+    <footer class="article-footer">
+      <a data-url="https://sysiya.github.io/post/follow-webpage-lifecycle/" data-id="cj7vhulxn0005fvsin4eb5wle" class="article-share-link">分享</a>
+      
+        <a href="https://sysiya.github.io/post/follow-webpage-lifecycle/#disqus_thread" class="article-comment-link">留言</a>
+      
+    </footer>
+  -->
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/post/javascript-object/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">JavaScript · 对象</div>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+  
+</article>
+</section>
+        
+      </div>
+      
+        <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Sysiya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+<script>
+  var disqus_shortname = 'sysiya';
+  
+  var disqus_url = 'https://sysiya.github.io/post/follow-webpage-lifecycle/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
