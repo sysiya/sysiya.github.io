@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sysiya.github.io/post/shell-shortcuts/</loc>
+    
+    <lastmod>2017-10-06T04:32:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sysiya.github.io/post/follow-webpage-lifecycle/</loc>
     
     <lastmod>2017-09-22T06:15:09.000Z</lastmod>

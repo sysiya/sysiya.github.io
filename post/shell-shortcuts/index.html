@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Shell · 快捷键 | 世界の角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对于日常使用 Shell 比较多的同学，熟悉快捷键操作无疑可以提高工作效率。">
+<meta name="keywords" content="Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell · 快捷键">
+<meta property="og:url" content="https://sysiya.github.io/post/shell-shortcuts/index.html">
+<meta property="og:site_name" content="世界の角落">
+<meta property="og:description" content="对于日常使用 Shell 比较多的同学，熟悉快捷键操作无疑可以提高工作效率。">
+<meta property="og:updated_time" content="2017-10-06T04:32:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell · 快捷键">
+<meta name="twitter:description" content="对于日常使用 Shell 比较多的同学，熟悉快捷键操作无疑可以提高工作效率。">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+        
+          <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sysiya.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+        
+      <div class="outer">
+        <section id="main"><article id="post-shell-shortcuts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+      
+      <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Shell · 快捷键
+    </h1>
+  
+
+          <a href="/post/shell-shortcuts/" class="article-date">
+  <time datetime="2017-10-06T04:30:07.000Z" itemprop="datePublished">2017-10-06</time>
+</a>
+          
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+      </header>
+      
+  </div>
+    <div class="article-inner">
+      
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于日常使用 Shell 比较多的同学，熟悉快捷键操作无疑可以提高工作效率。</p>
+<a id="more"></a>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程运行时可以使用以下快捷键：</p>
+<ul>
+<li><code>Ctrl + C</code>: 发送 <code>SIGINT</code> 信号，进程接收该信号后一般会结束执行。</li>
+<li><code>Ctrl + Z</code>: 发送 <code>SIGTSTP</code> 信号，接收该信号的进程一般会挂起，可使用 <code>fg precess_name</code> 命令唤醒进程。</li>
+<li><code>Ctrl + D</code>: 发送 <code>EOF</code> 标志给 Shell，Shell 将会退出，相当于 <code>exit</code> 命令</li>
+</ul>
+<h2 id="屏幕"><a href="#屏幕" class="headerlink" title="屏幕"></a>屏幕</h2><ul>
+<li><code>Ctrl + L</code>: 清除屏幕，相当于 <code>clear</code> 命令。</li>
+</ul>
+<h2 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h2><p>输入命令时，可以使用以下快捷键来移动光标：</p>
+<ul>
+<li><code>Ctrl + A</code> | <code>Home</code>: 移至行首。</li>
+<li><code>Ctrl + E</code> | <code>End</code>: 移至行尾。</li>
+<li><code>Alt + B</code>: 左移（Back）一个单词。</li>
+<li><code>Ctrl + B</code>: 左移（Back）一个字符。</li>
+<li><code>Alt + F</code>: 右移（Forward）一个单词。</li>
+<li><code>Ctrl + F</code>: 右移（Forward）一个字符。</li>
+<li><code>Ctrl + XX</code>: 暂时移至行首，操作完成后再次使用该快捷键使光标回到原来的位置。</li>
+</ul>
+<blockquote>
+<p>在 macOS 上使用 <code>Esc</code> 代替 <code>Alt</code>。</p>
+</blockquote>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>使用一下快捷键快速删除字符：</p>
+<ul>
+<li><code>Ctrl + D</code>: 删除当前光标位置的字符。</li>
+<li><code>Alt + D</code>: 删除当前光标位置之后的所有字符（包括当前光标位置）。</li>
+<li><code>Ctrl + H</code>: 删除当前光标位置的前一个字符。</li>
+</ul>
+<h2 id="纠错"><a href="#纠错" class="headerlink" title="纠错"></a>纠错</h2><p>使用以下快捷键可以纠正一些输入错误：</p>
+<ul>
+<li><code>Alt + T</code>: 交换当前光标的前两个词的位置。</li>
+<li><code>Ctrl + T</code>: 将当前光标位置上的字符和前一个字符交换，如果当前光标位置为行尾，那么就交换最后两个字符的位置。</li>
+<li><code>Ctrl + _</code>: 撤销操作，可撤销多次操作。</li>
+</ul>
+<h2 id="剪切与粘贴"><a href="#剪切与粘贴" class="headerlink" title="剪切与粘贴"></a>剪切与粘贴</h2><ul>
+<li><code>Ctrl + W</code>: 剪切当前光标之前的单词</li>
+<li><code>Ctrl + K</code>: 剪切当前光标之后的所有字符</li>
+<li><code>Ctrl + U</code>: 剪切整行</li>
+<li><code>Ctrl + Y</code>: 粘贴剪贴板里的最后一项</li>
+</ul>
+<h2 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a>大小写</h2><ul>
+<li><code>Alt + U</code>: 大写从当前光标位置到单词结尾的所有字符。</li>
+<li><code>Alt + L</code>: 小写从当前光标位置到单词结尾的所有字符。</li>
+<li><code>Alt + C</code>: 大写当前光标位置的字符，光标会自动移至单词结尾。</li>
+</ul>
+<h2 id="自动补全"><a href="#自动补全" class="headerlink" title="自动补全"></a>自动补全</h2><ul>
+<li><code>Tab</code>: 自动补全<strong>文件名</strong>，<strong>目录名</strong>和<strong>命令</strong>。</li>
+</ul>
+<h2 id="历史命令"><a href="#历史命令" class="headerlink" title="历史命令"></a>历史命令</h2><ul>
+<li><code>Ctrl + P</code>: 上一条历史命令</li>
+<li><code>Ctrl + N</code>: 下一条历史命令</li>
+<li><code>Ctrl + R</code>: 进入<strong>搜索模式</strong>，搜索历史命令</li>
+<li><code>Ctrl + O</code>: 在<strong>搜索模式</strong>下，执行该命令</li>
+<li><code>Ctrl + G</code>: 在<strong>搜索模式</strong>下，不执行命令，退出<strong>搜索模式</strong></li>
+</ul>
+
+      
+    </div>
+  <!--
+    <footer class="article-footer">
+      <a data-url="https://sysiya.github.io/post/shell-shortcuts/" data-id="cj8fearr4000mr5sin971fe63" class="article-share-link">分享</a>
+      
+        <a href="https://sysiya.github.io/post/shell-shortcuts/#disqus_thread" class="article-comment-link">留言</a>
+      
+    </footer>
+  -->
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/post/follow-webpage-lifecycle/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">追溯 · 网页 · 生命周期</div>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+  
+</article>
+</section>
+        
+      </div>
+      
+        <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Sysiya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+<script>
+  var disqus_shortname = 'sysiya';
+  
+  var disqus_url = 'https://sysiya.github.io/post/shell-shortcuts/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
