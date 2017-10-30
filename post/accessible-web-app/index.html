@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Accessible Web App · 实现高质量的 Web App | 世界の角落</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天，我们来研究下实现高质量 Web App 的关键一步——无障碍功能 (Accessibility)。">
+<meta name="keywords" content="Accessibility">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Accessible Web App · 实现高质量的 Web App">
+<meta property="og:url" content="https://sysiya.github.io/post/accessible-web-app/index.html">
+<meta property="og:site_name" content="世界の角落">
+<meta property="og:description" content="今天，我们来研究下实现高质量 Web App 的关键一步——无障碍功能 (Accessibility)。">
+<meta property="og:updated_time" content="2017-10-30T13:05:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Accessible Web App · 实现高质量的 Web App">
+<meta name="twitter:description" content="今天，我们来研究下实现高质量 Web App 的关键一步——无障碍功能 (Accessibility)。">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+        
+          <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!--<a id="nav-search-btn" class="nav-icon" title="搜索"></a>-->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sysiya.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+        
+      <div class="outer">
+        <section id="main"><article id="post-accessible-web-app" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+      
+      <header class="article-header">
+          
+  
+    <h1 class="article-title" itemprop="name">
+      Accessible Web App · 实现高质量的 Web App
+    </h1>
+  
+
+          <a href="/post/accessible-web-app/" class="article-date">
+  <time datetime="2017-10-30T12:58:49.000Z" itemprop="datePublished">2017-10-30</time>
+</a>
+          
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Accessibility/">Accessibility</a></li></ul>
+
+      </header>
+      
+  </div>
+    <div class="article-inner">
+      
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天，我们来研究下实现高质量 Web App 的关键一步——无障碍功能 (Accessibility)。</p>
+<a id="more"></a>
+<h2 id="实现-Accessible-Web-App-的途径"><a href="#实现-Accessible-Web-App-的途径" class="headerlink" title="实现 Accessible Web App 的途径"></a>实现 Accessible Web App 的途径</h2><p>首先，我们得先明确以下问题：</p>
+<ul>
+<li>无障碍功能是什么？</li>
+<li>为什么我们需要无障碍功能？</li>
+<li>如何实现无障碍功能？</li>
+</ul>
+<p>我们知道，大多数人主要通过视觉信息了解世界，所以现今的人机交互界面主要是通过提供视觉信息来反馈计算机内部的执行状态。</p>
+<p>这种用户界面的设计无疑获得了巨大的成功，现在用户广泛使用的操作系统，包括 Windows、macOS、Linux，都使用了这种设计理念——所见即所得 (What You See Is What You Get)。</p>
+<p>正是操作系统为软件提供了可视化界面，用户才能更方便地使用软件改善自己的生活与工作方式。</p>
+<p>而作为软件工程师，如何通过可视化界面设计一款用户易于使用的软件就是其工作非常重要的一个环节。</p>
+<p>在 Web App 的设计中，要构建其可视化界面，我们一般会通过 HTML + CSS + JavaScript 来实现一个可视化界面。</p>
+<ul>
+<li><strong>HTML</strong> 是描述界面结构的一门标记语言，我们通过 <strong>HTML 元素</strong>来标记界面结构与内容。</li>
+<li><strong>CSS</strong> 是描述界面样式的一门语言，我们通过 <strong>CSS 属性</strong>来描述界面的样式信息。</li>
+<li><strong>JavaScript</strong> 是响应用户操作并修改界面结构或样式的一门编程语言，我们通过 <strong>JavaScript 编程特性</strong>来编写响应与操作界面的程序。</li>
+</ul>
+<p>但我们也知道，存在着用户无法通过视觉信息来了解世界的情况，那么我们该如何让他们能使用 Web App 呢？</p>
+<p>这就是我们为什么需要无障碍功能 (Accessibility) 的原因了。</p>
+<p>无障碍功能 (Accessibility)，指的是为残障人士提供辅助访问功能，通过为所有人设计可访问的 Web App，增加 Web App 的用户量，提升 Web App 的使用体验。</p>
+<blockquote>
+<p>如果你想了解更多，可以阅读我的另一篇博文——Web Accessibility。</p>
+</blockquote>
+<p>实现无障碍功能是一个很复杂的难题，但幸运的是操作系统与浏览器都帮我们提供了底层技术的支持，因此，我们可以不去考虑底层系统的实现细节，而关注于如何提供 Web 内容。</p>
+<p>但我们还有一个问题亟须解答：<strong>不使用可视化界面，用户该如何与计算机交互呢？</strong></p>
+<p>事实上，如果用户不能通过视觉获取信息，那就可以使用其他感官，比如听觉器官，获取音频信息。</p>
+<p>那么我们需要将视觉信息转换为音频信息，提供给用户吗？</p>
+<p>答案是不用，因为这可以由其他软件来将视觉信息转换成音频信息，屏幕阅读器 (Screen Reader) 就是这样一种软件，把屏幕上显示的内容转换为语音。</p>
+<p>屏幕阅读器要能够将屏幕上显示的内容转换为语音，那么屏幕阅读器就必须先能够理解界面内容。这就很有意思了，屏幕阅读器只是一个软件，或者说应用程序，怎样才能理解界面上的内容呢？</p>
+<p>这么说吧，其实屏幕之所以能够显示界面内容，也是靠软件在背后操作硬件渲染，而对于软件来说，“<strong>界面内容</strong>”就是一些<strong>数据结构</strong>的集合，或者说，包含属性的<strong>对象</strong>。</p>
+<p>而这些软件可以理解的数据结构 (或对象) 就是我们常说的<strong>应用程序编程接口</strong> (Application Programming Interface, <strong>API</strong>)。</p>
+<p>这样你就能明白了：</p>
+<ul>
+<li>用户通过 <strong>User Interface</strong> 理解屏幕内容</li>
+<li>软件通过 <strong>Application Programming Interface</strong> 理解屏幕内容</li>
+</ul>
+<p>而 UI 与 API 都是由应用程序运行的平台提供给应用程序的，对于 Web App 来说，操作系统与浏览器就是支撑它运行的底层平台。</p>
+<p>所以操作系统与浏览器就会提供必要的 API 给屏幕阅读器，使其可以理解屏幕内容，并讲屏幕内容转换成语音。</p>
+<p>而作为 Web App 的构建者，我们需要做的就是按照浏览器的要求设计符合规范的 Web App 即可。所以要实现 Accessible Web App，我们往往需要关注以下几点：</p>
+<ul>
+<li>适当地标记页面结构</li>
+<li>为所有必要的非文字内容提供文字说明</li>
+<li>处理用户焦点</li>
+</ul>
+<h2 id="标记页面结构"><a href="#标记页面结构" class="headerlink" title="标记页面结构"></a>标记页面结构</h2><p>使用合适的 HTML 元素来标记页面结构与内容是十分必要的。</p>
+<p>一般来说，我们都会选择使用 <code>a</code> 元素来表示一个超链接。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://sysiya.github.io/"</span>&gt;</span>Sysiya 的博客<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>👆表示一个点击后将会跳转到<strong>Sysiya 的博客</strong>的超链接，链接地址为 <strong><a href="https://sysiya.github.io/">https://sysiya.github.io/</a></strong>。</p>
+<p>为什么我们可以理解上面这个 HTML 元素所表示的意义？这是因为 HTML 用 <code>a</code> 元素来表示为超链接 (Anchor)，其属性 <code>href</code> 表示用来表示点击后会跳转的链接地址。这就是 HTML 的<strong>语义</strong> (Semantic)。</p>
+<blockquote>
+<p>语义，指的是语言的含义，在这里，HTML 就是一门标记语言。</p>
+</blockquote>
+<p>我们可以而且最好尽可能利用 HTML 的语义来描述希望构建的界面内容，因为浏览器也是通过 HTML 的语义来推断界面的内容，然后将其理解的内容通过 API 暴露给其他软件。</p>
+<p>所以，我们应该避免使用以下标记。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">onclick</span>=<span class="string">"alert('点击了确定按钮')"</span>&gt;</span>确定<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>👆使用了一个 <code>a</code> 元素模仿了一个按钮，但从语义上来说，这应该是一个超链接，而不是一个按钮。也就是说，我们创建了一个跟语义矛盾的 UI 元素，从视觉效果上看，它可能跟一个按钮并没有什么差别，但本质上，它并不是一个按钮，浏览器也不能推断出它的正确用途。那么浏览器会把它当作一个超链接通过 API 暴露给屏幕阅读器，而屏幕阅读器就会告诉用户，这是一个链接！而这应该不是我们希望看到的。</p>
+<p>而使用 <code>button</code> 元素更能体现我们的设计意图，这符合 HTML 的语义，浏览器也能正确理解该 UI 元素。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>确定<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>除了 HTML 元素的原生语义外，浏览器还支持 <strong>ARIA</strong>。</p>
+<blockquote>
+<p>ARIA，全名为 <a href="https://www.w3.org/TR/wai-aria/" target="_blank" rel="external">Accessible Rich Internet Applications</a>，为 Web 内容的无障碍功能定义了完整的语义。</p>
+</blockquote>
+<p>简单地说，ARIA 允许我们扩展 HTML 元素语义。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">role</span>=<span class="string">"button"</span>&gt;</span>确定<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>👆仍然是一个使用 <code>a</code> 元素模拟的按钮，但是我们注意到一个明显的不同：</p>
+<ul>
+<li>属性 <code>role=&quot;button&quot;</code>，这是一个 ARIA 的角色 (role)，支持 ARIA 的浏览器现在可以识别该 UI 元素是一个按钮而不是超链接。</li>
+</ul>
+<p><code>role</code> 属性是一个全局属性，即所有的 HTML 元素都支持该属性，因此我们可以在任何一个 HTML 元素上使用 <code>role</code> 属性来重新定义其语义，但实际上并不是每个 HTML 元素都支持的 ARIA 定义的所有角色。</p>
+<p><code>a</code> 元素支持的 ARIA 角色只有：</p>
+<ul>
+<li>button</li>
+<li>checkbox</li>
+<li>menuitem</li>
+<li>menuitemcheckbox</li>
+<li>menuitemradio</li>
+<li>option</li>
+<li>radio</li>
+<li>switch</li>
+<li>tab</li>
+<li>treeitem</li>
+</ul>
+<blockquote>
+<p>而 ARIA 定义的角色，远比这多得多，你可以阅读 ARIA 规范中<a href="https://w3c.github.io/aria/aria/aria.html#roles_categorization" target="_blank" rel="external">角色分类</a>章节了解所有的 ARIA 角色。</p>
+</blockquote>
+<p>每一种 ARIA 角色都有其支持的状态 (state) 和属性 (property)。</p>
+<ul>
+<li><strong>状态</strong>表示 UI 元素的交互状态</li>
+<li><strong>属性</strong>表示 UI 元素的内在性质</li>
+</ul>
+<p>ARIA 角色 <code>button</code> 就支持以下状态：</p>
+<ul>
+<li><code>aria-expanded</code>: 如果角色 <code>button</code> 控制一个群组元素，<code>aria-expanded=&quot;true&quot;</code> 表示该群组元素<strong>已展开</strong>；<code>aria-expanded=&quot;false&quot;</code> 表示该群组元素<strong>已折叠</strong>。</li>
+<li><code>aria-pressed</code>: 如果角色 <code>button</code> 表示一个开关按钮，<code>aria-pressed=&quot;true&quot;</code> 表示该按钮<strong>已按下</strong>；<code>aria-pressed=&quot;false&quot;</code> 表示该按钮<strong>未按下</strong>。</li>
+</ul>
+<p>除了上面两个状态外，<code>button</code> 还支持所有 ARIA 角色都支持的状态与属性，即全局特性 (global attributes):</p>
+<ul>
+<li>aria-atomic</li>
+<li>aria-busy (state)</li>
+<li>aria-controls</li>
+<li>aria-current (state)</li>
+<li>aria-describedby</li>
+<li>aria-details</li>
+<li>aria-disabled (state)</li>
+<li>aria-dropeffect</li>
+<li>aria-errormessage</li>
+<li>aria-flowto</li>
+<li>aria-grabbed (state)</li>
+<li>aria-haspopup</li>
+<li>aria-hidden (state)</li>
+<li>aria-invalid (state)</li>
+<li>aria-keyshortcuts</li>
+<li>aria-label</li>
+<li>aria-labelledby</li>
+<li>aria-live</li>
+<li>aria-owns</li>
+<li>aria-relevant</li>
+<li>aria-roledescription</li>
+</ul>
+<blockquote>
+<p><strong>特性</strong> (Attribute) 在这里是 ARIA 的<strong>状态</strong> (state) 和<strong>属性</strong> (property) 的统称。</p>
+</blockquote>
+<p>我就不一一介绍每个特性的作用了，感兴趣的话，不妨阅读下<a href="https://w3c.github.io/aria/aria/aria.html#global_states" target="_blank" rel="external">该章节内容</a>。</p>
+<p>之前我们讨论了使用 <code>a</code> 元素和 ARIA 角色来模拟 <code>button</code> 元素的语义的情况，但这并不是 ARIA 的本意，我们也应该尽量避免这样与原生语义矛盾的用法。</p>
+<p>那么 ARIA 的正确使用方式是什么呢？</p>
+<p>ARIA 的真正意图是扩展 HTML 语义里所不包含的语义，尽管它也定义了 HTML 语义里已包含的语义。</p>
+<p>让我们来看看👇:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">role</span>=<span class="string">"tree"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">role</span>=<span class="string">"treeitem"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>音乐<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">role</span>=<span class="string">"group"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">role</span>=<span class="string">"treeitem"</span>&gt;</span>十年.mp3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">role</span>=<span class="string">"treeitem"</span>&gt;</span>朋友.mp3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">role</span>=<span class="string">"treeitem"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>电影<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">role</span>=<span class="string">"group"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">role</span>=<span class="string">"treeitem"</span>&gt;</span>肖申克的救赎.mp4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">role</span>=<span class="string">"treeitem"</span>&gt;</span>辛德勒的名单.mp4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这实际上是一个在 Web App 中常见的 Tree 控件，因为 HTML 并没有直接提供一个可以描述 Tree 控件语义的元素，所以我们使用了 <code>ul</code> 元素和 <code>li</code> 元素来描述该 Tree 控件的结构，但 <code>ul</code> 与 <code>li</code> 元素的语义并不是我们实际构建的 UI 组件的真实含义，因此，我们使用了 ARIA 的 <code>tree</code>、<code>treeitem</code> 和 <code>group</code> 三种角色来反映 Tree 控件的「真实」结构。</p>
+<p>这也是 ARIA 在 HTML 中更真实的应用场景。</p>
+<h2 id="为非文字内容提供文字替代"><a href="#为非文字内容提供文字替代" class="headerlink" title="为非文字内容提供文字替代"></a>为非文字内容提供文字替代</h2><p>在 Web App 设计时，我们常常会使用图片、视频、音频等增强用户体验，但同样存在用户无法正常访问图片、视频和音频的情况。</p>
+<p>HTML 分别使用 <code>img</code>、<code>video</code> 和 <code>audio</code> 元素来表示图片、视频和音频，并提供了媒体资源不可用时定义替代文字的方法。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">"头像"</span> <span class="attr">src</span>=<span class="string">"hand.png"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">src</span>=<span class="string">"video.mp4"</span>&gt;</span>这是一个视频<span class="tag">&lt;/<span class="name">video</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">"audio.mp3"</span>&gt;</span>这是一个音频<span class="tag">&lt;/<span class="name">audio</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>HTML 元素 <code>img</code> 的 <code>alt</code> 属性允许我们设定图片不可用时的替代文字，包括使用屏幕阅读器的情况。但 <code>video</code> 元素与 <code>audio</code> 元素并没有 <code>alt</code> 属性，标签内的文本内容也只会在浏览器不支持 <code>&lt;video&gt;</code> 和 <code>&lt;audio&gt;</code> 标签时才会显示，屏幕阅读器也无法读取该内容。</p>
+<h2 id="控制焦点"><a href="#控制焦点" class="headerlink" title="控制焦点"></a>控制焦点</h2><p>我们已经实现了：</p>
+<ul>
+<li>标记页面结构，让每个人都能理解页面结构。</li>
+<li>转换非文字内容，让每个人都能理解媒体元素。</li>
+</ul>
+<p>距离完全实现 <strong>Web Accessibility</strong>，我们还差最后一块拼图——<strong>导航</strong>。</p>
+<p>导航本意指的是指引载具到达某一个具体地点，GPS 导航系统就是我们熟知的导航例子。在 Web App 中，导航指的是指引用户到达某一个具体的内容，比如另一个页面或同一个页面中的特定位置。</p>
+<p>为什么用户会需要内容导航？因为 Web 内容包含的信息量比较大，而用户在某一时段使用 Web App 可能只是想<strong>关注</strong>特定的内容，因此 Web App 应该提供便捷的导航方法，尽快定位到用户<strong>关注</strong>的内容。这也是为什么你打开电商网站会看到那么多的分门别类的导航链接与内容块的原因。</p>
+<p>Web App 一般会提供以下常用的导航方式：</p>
+<ul>
+<li><strong>鼠标</strong></li>
+<li><strong>触摸板</strong>或<strong>触摸屏</strong></li>
+<li><strong>键盘</strong></li>
+</ul>
+<p>通过鼠标滚轮，我们可以控制网页内容的滚动，通过鼠标移动与点击操作可以点击特定的网页内容，可能激活一些特殊效果，比如点击链接将会使页面跳转到同一页面或另一页面的特定位置；点击按钮将播放视频或音乐；点击某一图标将改变页面的内容呈现等。</p>
+<p>触摸板是笔记本电脑上代替鼠标的输入设备，而触摸屏则是智能手机上常见的输入设备，这两者很相似，都是通过滑动和点按操作来模拟鼠标操作。</p>
+<p>而键盘是必备的输入设备，无论是物理键盘还是虚拟键盘，都是通过按键来实现输入与控制。其中 <code>Tab</code> 键是 Web App 中最常用的导航键。</p>
+<p>使用鼠标（包括触摸板和触摸屏）操作都是比较直观的导航，即滚动页面，而键盘导航相对就不是那么直观了。</p>
+<p>浏览器原生支持使用 <code>Tab</code> 键导航 Web 内容，但并不是所有的 Web 内容都能够使用 <code>Tab</code> 键导航，一般需要与用户交互的元素才默认可以使用 <code>Tab</code> 键导航。</p>
+<ul>
+<li><code>a</code> 元素</li>
+<li><code>input</code> 元素</li>
+<li><code>button</code> 元素</li>
+<li><code>textarea</code> 元素</li>
+<li><code>select</code> 元素</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>: Safari 不会导航 <code>a</code> 元素。</p>
+</blockquote>
+<p>上述这些元素大部分都是构成表单的元素，而表单是用户填写信息的主要途径，所以浏览器内建的表单处理机制已完美支持使用键盘来导航和操作这些元素。</p>
+<p>而上述这些浏览器原生支持使用 <code>Tab</code> 键导航的元素，有一个更直观的名称——<strong>隐式可聚焦元素</strong>。</p>
+<p><strong>可聚焦</strong>指的可以成为用户<strong>焦点</strong> (focus)，即用户的关注点，而<strong>隐式</strong>也暗示着可以<strong>显式</strong>指定元素成为用户焦点。</p>
+<p>一个复杂的 Web App 不只是包含表单这一种交互方式，比如打开与关闭导航栏的按钮或图标，弹出与关闭模态窗口的按钮等。这些都是用户频繁交互的组件，我们可能使用其他元素来实现这些交互组件，那么浏览器就应该提供一套显式指定可聚焦元素的方式。</p>
+<p>浏览器通过所有 HTML 元素的 <code>tabindex</code> 属性和 DOM 的 <code>focus()</code> 方法来显式控制<strong>焦点</strong>。</p>
+<h3 id="tabindex"><a href="#tabindex" class="headerlink" title="tabindex"></a>tabindex</h3><p><code>tabindex</code> 是一个全局属性，即所有的 HTML 元素都拥有该属性，它用来指定 <code>Tab</code> 键的导航顺序。</p>
+<p><code>Tab</code> 键的导航顺序即连续按下 <code>Tab</code> 键的导航路径。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>编辑<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果你连续按三次 <code>Tab</code> 键，你会发现上面三个按钮会依次<strong>高亮</strong>，顺序与元素的顺序一致。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>编辑<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>通过设置第二个按钮的 <code>tabindex=&quot;-1&quot;</code>，将把第二个按钮从 <code>Tab</code> 键的导航顺序中移除。此时你按 <code>Tab</code> 键导航时，将跳过第二个按钮。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">tabindex</span>=<span class="string">"1"</span>&gt;</span>编辑<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>设置第三个按钮：<code>tabindex=&quot;1&quot;</code>，将把第三个按钮的导航顺序提前，或者说提高了优先级。此时你按 <code>Tab</code> 键导航时，会发现导航顺序是「编辑」-&gt;「保存」。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">tabindex</span>=<span class="string">"1"</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">tabindex</span>=<span class="string">"1"</span>&gt;</span>编辑<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>再设置第一个按钮：<code>tabindex=&quot;1&quot;</code>，将第一个按钮的优先级提高到与第三个按钮一致时，你会发现，导航顺序又变成了「保存」-&gt;「编辑」。</p>
+<p>这几个例子应该足够帮助你弄清楚 <code>tabindex</code> 的作用了，当然，你可能也已经发现了我并没有讨论 <code>tabindex=&quot;0&quot;</code> 的情况。这是因为默认情况下，<code>button</code> 元素的 <code>tabindex</code> 的取值就是 <code>&quot;0&quot;</code>。</p>
+<p>现在，我们可以总结下 <code>tabindex</code> 的取值与其含义。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">tabindex</th>
+<th style="text-align:left">表示的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">&lt; 0</td>
+<td style="text-align:left">该元素无法通过 <code>Tab</code> 键导航</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt; 0</td>
+<td style="text-align:left">该元素可以通过 <code>Tab</code> 键导航，且 <code>tabindex</code> 的取值越大，优先级就越高，同一优先级下比较其出现在文档中的顺序</td>
+</tr>
+</tbody>
+</table>
+<p>由此，我们不难发现，默认情况下，所有的<strong>隐式可聚焦元素</strong>的 <code>tabindex=&quot;0&quot;</code>，而其他的元素 (<strong>显式可聚焦元素</strong>) 的 <code>tabindex=&quot;-1&quot;</code>。<strong>显式可聚焦元素</strong>必须显式设定 <code>tabindex</code> 的值大于或等于 <code>0</code> 才可以出现在 <code>Tab</code> 键的导航路径里。</p>
+<p>通过 <code>tabindex</code> 的设置与使用 <code>Tab</code> 键，我们可以在多个元素间导航，而正到达的元素即用户的<strong>焦点</strong> (focus)。</p>
+<h3 id="focus"><a href="#focus" class="headerlink" title="focus"></a>focus</h3><p><code>HTMLElement.prototype.focus()</code> 方法允许在 JavaScript 脚本中以编程的方式控制<strong>焦点</strong>。</p>
+<p>你也可以通过 <code>document.activeElement</code> 属性来查看当前页面的焦点。</p>
+<p>调用所有<strong>隐式可聚焦元素</strong>的 <code>focus()</code> 方法，将设置当前页面的焦点为该元素。</p>
+<p>然而直接调用<strong>显式可聚焦元素</strong>的 <code>focus()</code> 方法，并不能设置当前页面的焦点为该元素。你必须<strong>显式</strong>设置 <code>tabindex</code> 为有效的数字时，才能通过调用 <code>focus()</code> 方法使该元素成为当前页面的焦点。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, World.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">tabindex</span>=<span class="string">""</span>&gt;</span>Hello, World.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span>&gt;</span>Hello, World.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果你直接调用上面两个 <code>p</code> 元素的 <code>focus()</code> 方法，并不能聚焦该元素；而调用最后一个 <code>p</code> 元素的 <code>focus()</code> 方法是可以聚焦该元素的。这看起来是浏览器实现上出现的陷阱，但所幸所有的浏览器都具有这个陷阱，所以你可以打消心存侥幸的念头了。</p>
+
+      
+    </div>
+  <!--
+    <footer class="article-footer">
+      <a data-url="https://sysiya.github.io/post/accessible-web-app/" data-id="cj9e782290004ihsid9eyvm88" class="article-share-link">分享</a>
+      
+        <a href="https://sysiya.github.io/post/accessible-web-app/#disqus_thread" class="article-comment-link">留言</a>
+      
+    </footer>
+  -->
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/post/web-accessibility/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">Web Accessibility · 让更多人可以使用 Web 应用</div>
+    </a>
+  
+</nav>
+
+  
+
+  
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+  
+</article>
+</section>
+        
+      </div>
+      
+        <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Sysiya<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+<script>
+  var disqus_shortname = 'sysiya';
+  
+  var disqus_url = 'https://sysiya.github.io/post/accessible-web-app/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
